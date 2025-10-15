@@ -1,0 +1,205 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --header-bg: #000000;
+    --background-color: #fcf7ef; /* Fundo bege claro (conforme imagem) */
+    --card-background: #ffffff;
+    --primary-red: #E75353; /* Cor do botão principal/ênfase */
+    --text-color: #333;
+    --input-border: #ddd;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* --- Header --- */
+.desafio-header {
+    background-color: var(--header-bg);
+    color: var(--card-background);
+    padding: 15px 0;
+    text-align: left;
+    padding-left: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.desafio-header h1 {
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.desafio-main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- Botão Voltar --- */
+.btn-voltar {
+    background-color: var(--header-bg);
+    color: var(--card-background);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-voltar:hover {
+    background-color: #333;
+}
+
+.btn-voltar i {
+    margin-right: 5px;
+}
+
+/* --- Card Principal do Desafio --- */
+.challenge-card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.challenge-title {
+    font-size: 1.6em;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* Imagem da Bica */
+.image-container {
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.bica-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.challenge-subtitle {
+    color: #666;
+    margin-bottom: 25px;
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+/* --- Seção da Charada --- */
+.riddle-box {
+    background-color: #fff9e9; /* Fundo levemente diferente para a caixa de charada */
+    border: 1px solid #f0e0c9;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.riddle-text {
+    font-weight: 600;
+    margin-bottom: 15px;
+    font-size: 1.1em;
+}
+
+.response-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#riddleInput {
+    flex-grow: 1;
+    padding: 10px 15px;
+    border: 1px solid var(--input-border);
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+#sendAnswerBtn {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#sendAnswerBtn:hover {
+    background-color: #d84545;
+}
+
+.tip-section {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.tip-button {
+    background: none;
+    border: none;
+    color: #777;
+    cursor: pointer;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.tip-button:hover {
+    color: var(--primary-red);
+}
+
+/* --- Lista de Tarefas --- */
+.tasks-list h3 {
+    font-size: 1.2em;
+    border-bottom: 2px solid var(--input-border);
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.task-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 1em;
+}
+
+.task-item input[type="checkbox"] {
+    margin-right: 10px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--primary-red);
+}
+
+/* --- Mensagem de Feedback (Oculta por padrão) --- */
+.feedback-message {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    display: none;
+}
+.feedback-message.success {
+    background-color: #e6ffe6;
+    color: #4CAF50;
+}
+.feedback-message.error {
+    background-color: #ffe6e6;
+    color: var(--primary-red);
+}

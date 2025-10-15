@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --header-bg: #000000;
+    --background-color: #fcf7ef; /* Fundo bege claro (conforme imagem) */
+    --card-background: #ffffff;
+    --primary-red: #E75353; /* Cor do botão principal (vermelho/rosa) */
+    --text-color: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* --- Header --- */
+.capitulo-header {
+    background-color: var(--header-bg);
+    color: var(--card-background);
+    padding: 15px 0;
+    text-align: left;
+    padding-left: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.capitulo-header h1 {
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.capitulo-main-content {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* --- Botão Voltar --- */
+.btn-voltar {
+    background-color: var(--header-bg);
+    color: var(--card-background);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-voltar:hover {
+    background-color: #333;
+}
+
+.btn-voltar i {
+    margin-right: 5px;
+}
+
+/* --- Card de Conteúdo Principal --- */
+.chapter-content-card {
+    background-color: var(--card-background);
+    padding: 40px 30px;
+    border-radius: 10px;
+    /* Sombra mais suave para destacar o card, conforme a imagem */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto; /* Centraliza o card na página */
+}
+
+.chapter-title {
+    font-size: 1.6em;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+.chapter-text {
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 0.95em;
+    /* Reduz a largura do texto para centralizar o bloco */
+    max-width: 90%; 
+    margin: 0 auto 30px auto;
+}
+
+/* Botão "Ir para o Capítulo" */
+.btn-ir-capitulo {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%; 
+    max-width: 400px; /* Garante que o botão não seja muito largo */
+}
+
+.btn-ir-capitulo:hover {
+    background-color: #d84545;
+    transform: translateY(-2px);
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O Mistério de Iracema | Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="main-header">
+        </header>
+
+    <nav class="main-nav">
+        <h2>O Mistério de Iracema</h2>
+        <div class="nav-links">
+            <a href="#" class="active"><i class="fas fa-map-marker-alt"></i> Mapa</a>
+            <a href="historia.html"><i class="fas fa-history"></i> História</a>
+            <a href="capitulos.html"><i class="fas fa-book"></i> Enredo</a>
+            <a href="desafio_bica_ipu.html"><i class="fas fa-tasks"></i> Desafios</a>
+            <a href="#"><i class="fas fa-user-circle"></i> Perfil</a>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <section class="investigation-progress">
+             
+            <h3>O Desaparecimento da Estátua...</h3>
+            <p>Um mistério assola a cidade de Ipu: a estátua da praça de Iracema desapareceu</p>
+            <p>Explore a cidade, colete pistas e descubra a verdade</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
+            </div>
+            <a href="capitulos.html" id="continueLink" class="button-continue">Prosseguir Investigação</a>
+            <span class="progress-percentage" id="progressPercentage">0%</span>
+            
+           
+        </section>
+
+        <section class="interactive-map">
+            <h3>Mapa Interativo</h3>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6690.979870543367!2d-40.70807039835578!3d-4.3204602550149005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1759513856143!5m2!1spt-BR!2sbr" 
+                    width="100%" 
+                    height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade" 
+                    class="google-map-iframe">
+            </iframe>
+        </section>
+
+        <section class="history-iracema">
+            <h3>A História de Ipu e Iracema</h3>
+            <div class="history-text">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fringilla ac lorem eu tristique. Fusce aliquet aliquet augue a egestas. Aenean interdum eget mi in commodo. Morbi pellentesque sollicitudin turpis, sit amet commodo orci commodo lacinia.</p>
+            </div>
+            <button class="button-see-more">Saiba Mais</button>
+        </section>
+
+        <section class="challenges">
+            <h3>Desafios</h3>
+            <div class="challenges-list">
+                <button class="arrow-left"><i class="fas fa-chevron-left"></i></button>
+
+                <div class="challenge-card">
+                    <h4>Bica do Ipu</h4>
+                    <p>Resolva as charadas</p>
+                    <p>e encontre a pista.</p>
+                    <div class="lock"><i class="fas fa-lock"></i></div>
+                </div>
+
+                <div class="challenge-card">
+                    <h4>Estação Ferroviária</h4>
+                    <p>Resolva as charadas</p>
+                    <p>e encontre a pista.</p>
+                    <div class="lock"><i class="fas fa-lock"></i></div>
+                </div>
+
+                <div class="challenge-card">
+                    <h4>Casa de Cultura</h4>
+                    <p>Resolva as charadas</p>
+                    <p>e encontre a pista.</p>
+                    <div class="lock"><i class="fas fa-lock"></i></div>
+                </div>
+                
+                <button class="arrow-right"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+        <section class="ranking">
+            <h3>Rankeamento</h3>
+            <ul class="ranking-list">
+                <li class="ranking-item">
+                    <img src="/fotos/kaiser.jpeg" alt="Avatar">
+                    <span>Kaiser</span>
+                    <span class="score">120 pts</span>
+                </li>
+                <li class="ranking-item">
+                    <img src="https://via.placeholder.com/35/D25866/FFFFFF?text=G" alt="Avatar">
+                    <span>GeroZaapGamer_2867</span>
+                    <span class="score">90 pts</span>
+                </li>
+                <li class="ranking-item">
+                    <img src="https://via.placeholder.com/35/555555/FFFFFF?text=M" alt="Avatar">
+                    <span>MarcelinhoGamer12</span>
+                    <span class="score">50 pts</span>
+                </li>
+            </ul>
+        </section>
+
+        <section class="user-profile">
+            <h3>Seu Perfil</h3>
+            <p>Usuário: **@Felipe_Sousa**</p>
+            <p>Conquistas: Explorador Nível 1</p>
+            <button class="button-see-conquests">Ver Conquistas</button>
+        </section>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --header-bg: #000000;
+    --background-color: #fcf7ef; /* Cor de fundo bege claro */
+    --card-background: #ffffff;
+    --primary-red: #E75353; /* Cor do botão principal (vermelho/rosa) */
+    --text-color: #333;
+    --lock-color: #999;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+/* --- Header --- */
+.capitulos-header {
+    background-color: var(--header-bg);
+    color: var(--card-background);
+    padding: 15px 0;
+    text-align: left;
+    padding-left: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+}
+
+.capitulos-header h1 {
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.capitulos-main-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Botão Voltar --- */
+.btn-voltar {
+    background-color: var(--header-bg);
+    color: var(--card-background);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-bottom: 30px;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-voltar:hover {
+    background-color: #333;
+}
+
+.btn-voltar i {
+    margin-right: 5px;
+}
+
+/* --- Cards de Capítulos --- */
+.capitulos-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.capitulo-card {
+    background-color: var(--card-background);
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    transition: transform 0.3s, box-shadow 0.3s;
+    max-width: 600px; 
+    margin: 0 auto;
+}
+
+/* Estilo para o Capítulo Ativo/Desbloqueado (Botão) */
+.capitulo-card.unlocked {
+    cursor: pointer; 
+}
+
+.capitulo-card.unlocked:hover {
+    transform: translateY(-5px); /* Efeito de elevação para destacar o clique */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.capitulo-card h2 {
+    font-size: 1.5em;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.capitulo-card p {
+    color: var(--lock-color);
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+/* Botão "Ir para o Capítulo" (Estilo visual) */
+.btn-ir-capitulo {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    padding: 12px 40px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 90%; 
+    max-width: 400px;
+    display: block; 
+    margin: 15px auto 0 auto;
+}
+
+.btn-ir-capitulo:hover:not(.disabled) {
+    background-color: #d84545;
+}
+
+/* --- Estilos de Bloqueio --- */
+.capitulo-card.locked {
+    opacity: 0.5;
+    pointer-events: none; /* Desabilita cliques nos cards bloqueados */
+}
+
+.lock-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+
+.lock-overlay i {
+    font-size: 2.5em;
+    color: var(--lock-color);
+    margin-bottom: 10px;
+}
+
+.lock-overlay span {
+    font-weight: 600;
+    color: var(--lock-color);
+}
+
+.btn-ir-capitulo.disabled {
+    background-color: var(--lock-color);
+    cursor: not-allowed;
+}

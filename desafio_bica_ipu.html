@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio | Bica do Ipu</title>
+    <link rel="stylesheet" href="desafio_bica_ipu.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header class="desafio-header">
+        <h1>Desafios</h1>
+    </header>
+
+    <main class="desafio-main-content">
+        <button class="btn-voltar" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+
+        <section class="challenge-card">
+            <h2 class="challenge-title">Desafios na Bica do Ipu</h2>
+            
+            <div class="image-container">
+                <img src="fotos/bica.jpg" alt="A famosa Bica do Ipu, cheia de lendas e mistérios" class="bica-image">
+            </div>
+
+            <p class="challenge-subtitle">A famosa Bica do Ipu, cheia de lendas e mistérios</p>
+
+            <div class="riddle-box">
+                <p class="riddle-text">
+                    Charada: O que é que todo mundo vê, mas não dá pra beber?
+                </p>
+                <div class="response-area">
+                    <input type="text" id="riddleInput" placeholder="Escreva sua resposta" aria-label="Resposta da Charada">
+                    <button id="sendAnswerBtn" title="Enviar Resposta"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <div class="tip-section">
+                    <button id="showTipBtn" class="tip-button"><i class="fas fa-lightbulb"></i> Mostrar Dica</button>
+                </div>
+            </div>
+
+            <div class="tasks-list">
+                <h3>Tarefas</h3>
+                <div class="task-item">
+                    <input type="checkbox" id="taskQrCode">
+                    <label for="taskQrCode">Encontre o QR Code</label>
+                </div>
+                <div class="task-item">
+                    <input type="checkbox" id="taskRiddle">
+                    <label for="taskRiddle">Resolva a Charada</label>
+                </div>
+            </div>
+            
+            <div id="feedbackMessage" class="feedback-message"></div>
+        </section>
+        
+    </main>
+    
+    <script src="desafio_bica_ipu.js"></script>
+</body>
+</html>

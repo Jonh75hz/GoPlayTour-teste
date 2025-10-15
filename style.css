@@ -1,0 +1,293 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    /* Cores principais baseadas na imagem */
+    --primary-color-magenta: #000000; /* Roxo/Magenta */
+    --secondary-color-red: #D25866; /* Rosa/Vinho */
+    
+    /* Cores de fundo e texto */
+    --background-color: #fffaea; 
+    --card-background: #ffffff; 
+    --text-color: #000000;
+    --light-text-color: #000000;
+    --border-color: #110000;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+/* --- Navegação Principal (Header/Menu) --- */
+
+.main-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: var(--card-background);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.main-nav h2 {
+    font-size: 1.2em;
+    font-weight: 600;
+}
+
+.nav-links a {
+    color: var(--light-text-color);
+    text-decoration: none;
+    margin-left: 15px;
+    padding: 5px 0;
+    font-size: 0.9em;
+    transition: color 0.3s;
+}
+
+.nav-links a.active {
+    color: var(--primary-color-magenta);
+    font-weight: 600;
+    border-bottom: 2px solid var(--primary-color-magenta);
+}
+
+/* --- Seção de Progresso --- */
+
+.investigation-progress {
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.progress-bar-container {
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    height: 15px;
+    width: 80%;
+    max-width: 500px;
+    margin: 15px auto 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--secondary-color-red); 
+    border-radius: 5px;
+    transition: width 0.6s ease-in-out; 
+}
+
+.progress-percentage {
+    font-weight: 600;
+    display: block;
+    margin-top: 5px;
+}
+
+.button-continue {
+    background-color: var(--secondary-color-red);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(210, 88, 102, 0.4); 
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.button-continue:hover {
+    background-color: #bb4754; 
+    transform: translateY(-2px);
+}
+
+/* --- Mapa Interativo (IFRAME) --- */
+
+.interactive-map {
+    margin-top: 20px;
+}
+
+/* Estilo para o iframe do Google Maps */
+.google-map-iframe {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    height: 300px; /* Mantém a altura definida no HTML */
+}
+
+/* --- História --- */
+
+.history-iracema {
+    background-color: var(--card-background);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-top: 30px;
+}
+
+.button-see-more {
+    background-color: var(--secondary-color-red); 
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+.button-see-more:hover {
+    background-color: #bb4754;
+}
+
+/* --- Desafios --- */
+
+.challenges {
+    margin-top: 30px;
+}
+
+.challenges-list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow-x: auto; 
+    padding: 5px 0;
+}
+
+.challenge-card {
+    min-width: 200px;
+    background-color: var(--card-background);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border-left: 5px solid var(--primary-color-magenta);
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.lock i {
+    margin-top: 10px;
+    font-size: 1.5em;
+    color: var(--primary-color-magenta);
+}
+
+.arrow-left, .arrow-right {
+    background: none;
+    border: none;
+    font-size: 1.5em;
+    color: var(--primary-color-magenta);
+    cursor: pointer;
+    padding: 10px;
+    transition: color 0.2s;
+}
+
+.arrow-left:hover, .arrow-right:hover {
+    color: var(--secondary-color-red);
+}
+
+/* --- Rankeamento --- */
+
+.ranking {
+    margin-top: 30px;
+}
+
+.ranking-list {
+    list-style: none;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: 0 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.ranking-item img {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.ranking-item span {
+    flex-grow: 1;
+    font-weight: 500;
+}
+
+.ranking-item .score {
+    font-weight: 700;
+    color: var(--primary-color-magenta); 
+}
+
+/* --- Seu Perfil --- */
+
+.user-profile {
+    margin: 30px 0 50px;
+    padding: 20px;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.button-see-conquests {
+    background-color: transparent;
+    color: var(--secondary-color-red); 
+    border: 1px solid var(--secondary-color-red);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-weight: 600;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.button-see-conquests:hover {
+    background-color: var(--secondary-color-red);
+    color: white;
+}
+/* ... (CSS anterior mantido) ... */
+
+/* Estilo para o botão de continuar, agora um link */
+.button-continue {
+    background-color: var(--secondary-color-red);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 4px 6px rgba(210, 88, 102, 0.4); 
+    transition: background-color 0.3s, transform 0.2s;
+    /* NOVO: Estiliza o link como um botão */
+    text-decoration: none; 
+    display: inline-block; /* Permite padding e width */
+}
+
+.button-continue:hover {
+    background-color: #bb4754; 
+    transform: translateY(-2px);
+}
+
+/* ... (Restante do CSS, incluindo o iframe, é mantido) ... */
