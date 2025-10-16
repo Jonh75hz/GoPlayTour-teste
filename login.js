@@ -1,19 +1,25 @@
+import { auth } from './firebase-config.js';
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 const loginEmailInput = document.getElementById('loginEmail');
 const loginPasswordInput = document.getElementById('loginPassword');
 const loginBtn = document.getElementById('loginBtn');
-
-const auth = firebase.auth();
+const messageDiv = document.getElementById('message');
 
 loginBtn.addEventListener('click', () => {
     const email = loginEmailInput.value;
     const password = loginPasswordInput.value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            window.location.href = 'index.html';
+            // Signed in 
+            const user = userCredential.user;
+            console.log('User signed in:', user);
+            window.location.href = 'capitulos.html'; // Redirect to a protected page
         })
         .catch((error) => {
+            const errorCode = error.code;
             const errorMessage = error.message;
-            alert(errorMessage);
+            messageDiv.innerHTML = errorMessage;
         });
 });
