@@ -1,0 +1,53 @@
+@import url('style.css');
+
+.register-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color-magenta);
+}
+
+.register-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+}
+
+.register-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--secondary-color-red);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-container button:hover {
+    background-color: #bb4754;
+}
+
+.register-container p {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.register-container a {
+    color: var(--secondary-color-red);
+    text-decoration: none;
+}
+
+.register-container a:hover {
+    text-decoration: underline;
+}
