@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Simulação de estado do jogo (pode vir de um backend real)
     const totalChapters = 5;
-    const completedChapters = 2; // Simula 2 capítulos completos
+    const completedChapters = 0; // Simula 0 capítulos completos
 
     function calculateProgress() {
         const percentage = Math.round((completedChapters / totalChapters) * 100);

@@ -1,0 +1,220 @@
+
+:root {
+    --primary-color: #6a11cb;
+    --secondary-color: #2575fc;
+    --background-color: #f0f2f5;
+    --card-background: #ffffff;
+    --text-color: #333;
+    --light-text-color: #6c757d;
+    --star-color: #ffc107;
+    --progress-bar-color: #6a11cb;
+    --progress-bar-background: #e9ecef;
+    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --border-radius: 20px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.profile-container {
+    background-color: var(--card-background);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    padding: 40px;
+    width: 90%;
+    max-width: 450px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-container:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+.profile-header {
+    margin-bottom: 30px;
+}
+
+.profile-pic-label {
+    cursor: pointer;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.profile-pic-placeholder {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed var(--primary-color);
+    color: var(--primary-color);
+    margin: 0 auto;
+}
+
+.plus-icon {
+    font-size: 3em;
+    font-weight: 200;
+}
+
+.profile-pic {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid;
+    border-image: linear-gradient(45deg, var(--primary-color), var(--secondary-color)) 1;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+#userName {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--text-color);
+    margin: 0;
+}
+
+.points-section {
+    margin-top: 15px;
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.points-section p {
+    margin: 0;
+    color: var(--light-text-color);
+    font-size: 1em;
+}
+
+.points-section .points-display {
+    font-size: 3em;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.points-section .star {
+    font-size: 1.8em;
+    vertical-align: middle;
+    margin-left: 8px;
+}
+
+.progress-section {
+    margin-bottom: 35px;
+}
+
+.progress-circle {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: conic-gradient(var(--progress-bar-color) 0% var(--progress, 0%), var(--progress-bar-background) var(--progress, 0%) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto 15px;
+    position: relative;
+    transition: background 0.5s ease-in-out;
+}
+
+.progress-circle-inner {
+    width: 150px;
+    height: 150px;
+    background-color: var(--card-background);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#progressPercentage {
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.progress-section > p {
+    color: var(--light-text-color);
+    font-size: 1em;
+    margin: 0;
+}
+
+.achievements-section h3 {
+    margin-bottom: 20px;
+    font-size: 1.8em;
+    color: var(--text-color);
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 20px;
+}
+
+.achievement-card {
+    background-color: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 15px;
+    padding: 25px 15px;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.achievement-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.achievement-icon {
+    font-size: 3em;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+    display: block;
+}
+
+.achievement-card p {
+    margin: 0;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 35px;
+}
+
+.logout-button, .back-button {
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease;
+    text-decoration: none; /* Remove underline from anchor tag */
+}
+
+.logout-button {
+    background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+}
+
+.back-button {
+    background-color: #6c757d;
+}
+
+.logout-button:hover, .back-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}

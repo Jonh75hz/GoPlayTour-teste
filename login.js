@@ -1,5 +1,5 @@
 import { auth } from './firebase-config.js';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 
 const loginEmailInput = document.getElementById('loginEmail');
 const loginPasswordInput = document.getElementById('loginPassword');
@@ -15,7 +15,7 @@ loginBtn.addEventListener('click', () => {
             // Signed in 
             const user = userCredential.user;
             console.log('User signed in:', user);
-            window.location.href = 'capitulos.html'; // Redirect to a protected page
+            window.location.href = 'perfil.html'; // Redirect to the new profile page
         })
         .catch((error) => {
             const errorCode = error.code;
