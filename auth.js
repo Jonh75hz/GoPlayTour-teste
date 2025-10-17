@@ -1,5 +1,5 @@
 import { auth } from './firebase-config.js';
-import { signOut } from 'firebase/auth';
+import { signOut } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
 
 document.addEventListener('DOMContentLoaded', () => {
   const logoutButton = document.getElementById('logout-button');
