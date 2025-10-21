@@ -44,7 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             profilePic.src = downloadURL;
                             profilePic.style.display = 'block';
                             profilePicPlaceholder.style.display = 'none';
+                        }).catch(error => {
+                            console.error("Erro ao obter URL de download:", error);
                         });
+                    }).catch(error => {
+                        console.error("Erro no upload do arquivo:", error);
                     });
                 }
             });

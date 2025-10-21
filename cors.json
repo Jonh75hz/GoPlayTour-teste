@@ -1,0 +1,22 @@
+
+[
+  {
+    "origin": [
+      "https://5500-firebase-goplaytour-testegit-1760550600501.cluster-mdgxqvvkkbfpqrfigfiuugu5pk.cloudworkstations.dev",
+      "https://goplaytour-3363c.web.app",
+      "http://localhost:5500"
+    ],
+    "method": [
+      "GET",
+      "POST",
+      "PUT",
+      "DELETE",
+      "OPTIONS"
+    ],
+    "responseHeader": [
+      "Content-Type",
+      "Authorization"
+    ],
+    "maxAgeSeconds": 3600
+  }
+]
