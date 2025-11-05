@@ -1,46 +1,51 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // -----------------------------------------------------------------
-    // --- Lógica do Progresso Baseado em Capítulos --------------------
-    // -----------------------------------------------------------------
-    const progressBar = document.getElementById('progressBar');
-    const progressPercentage = document.getElementById('progressPercentage');
-    const continueLink = document.getElementById('continueLink'); // Referencia o novo link
+document.addEventListener("DOMContentLoaded", () => {
+    // Verifique se os elementos do carrossel existem antes de executar o código
+    const prevButton = document.getElementById("prevChallenge");
+    const nextButton = document.getElementById("nextChallenge");
+    const challengeContainer = document.querySelector(".challenge-card-container");
 
-    // Simulação de estado do jogo (pode vir de um backend real)
-    const totalChapters = 5;
-    const completedChapters = 0; // Simula 0 capítulos completos
-
-    function calculateProgress() {
-        const percentage = Math.round((completedChapters / totalChapters) * 100);
-        
-        // Aplica a animação (transição CSS)
-        progressBar.style.width = percentage + '%'; 
-        progressPercentage.textContent = percentage + '%';
-        
-        // Altera o texto do link quando a investigação estiver completa
-        if (completedChapters >= totalChapters) {
-            continueLink.textContent = 'Investigação Completa!';
-            continueLink.style.backgroundColor = '#4CAF50'; // Cor verde de sucesso
-        } else {
-            continueLink.textContent = 'Prosseguir Investigação';
-        }
+    // Se os botões ou o container não existirem nesta página, não faça nada.
+    if (!prevButton || !nextButton || !challengeContainer) {
+        return;
     }
 
-    // Inicializa a barra de progresso
-    calculateProgress(); 
+    const challenges = document.querySelectorAll(".challenge-card");
+    const dots = document.querySelectorAll(".carousel-dots .dot");
 
-    // -----------------------------------------------------------------
-    // --- Lógica de Animação de Desafios (Scroll Horizontal) ----------
-    // -----------------------------------------------------------------
-    const challengesList = document.querySelector('.challenges-list');
-    const arrowRight = document.querySelector('.arrow-right');
-    const arrowLeft = document.querySelector('.arrow-left');
+    if (challenges.length === 0) {
+        return;
+    }
 
-    arrowRight.addEventListener('click', () => {
-        challengesList.scrollBy({ left: 250, behavior: 'smooth' });
+    let currentIndex = 0;
+    const totalChallenges = challenges.length;
+    const challengeWidth = challenges[0].offsetWidth + 20; // Largura do card + gap
+
+    function updateCarousel() {
+        const offset = -currentIndex * challengeWidth;
+        challengeContainer.style.transform = `translateX(${offset}px)`;
+
+        dots.forEach((dot, index) => {
+            dot.classList.toggle("active", index === currentIndex);
+        });
+    }
+
+    prevButton.addEventListener("click", () => {
+        currentIndex = (currentIndex > 0) ? currentIndex - 1 : totalChallenges - 1;
+        updateCarousel();
     });
 
-    arrowLeft.addEventListener('click', () => {
-        challengesList.scrollBy({ left: -250, behavior: 'smooth' });
+    nextButton.addEventListener("click", () => {
+        currentIndex = (currentIndex < totalChallenges - 1) ? currentIndex + 1 : 0;
+        updateCarousel();
     });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener("click", () => {
+            currentIndex = index;
+            updateCarousel();
+        });
+    });
+
+    // Inicializa o carrossel
+    updateCarousel();
 });

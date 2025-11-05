@@ -8,52 +8,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header class="desafio-header">
-        <h1>Desafios</h1>
-    </header>
-
-    <main class="desafio-main-content">
+    <main class="main-container">
         <button class="btn-voltar" onclick="history.back()">
             <i class="fas fa-arrow-left"></i> Voltar
         </button>
 
-        <section class="challenge-card">
-            <h2 class="challenge-title">Desafios na Bica do Ipu</h2>
-            
-            <div class="image-container">
-                <img src="fotos/bica.jpg" alt="A famosa Bica do Ipu, cheia de lendas e mistérios" class="bica-image">
-            </div>
+        <h1 class="main-title">Desafios na Bica do Ipu</h1>
 
-            <p class="challenge-subtitle">A famosa Bica do Ipu, cheia de lendas e mistérios</p>
+        <div class="image-banner">
+            <img src="fotos/bica.jpg" alt="Bica do Ipu">
+            <p>A famosa Bica do Ipu, cheia de lendas e mistérios</p>
+        </div>
 
-            <div class="riddle-box">
-                <p class="riddle-text">
-                    Charada: O que é que todo mundo vê, mas não dá pra beber?
-                </p>
+        <section class="missions-card">
+            <h2>Missões</h2>
+            <div class="riddle-section">
+                <h3>Resolva a Charada</h3>
+                <p>O que é que todo mundo vem ver, mas não dá pra beber?</p>
                 <div class="response-area">
-                    <input type="text" id="riddleInput" placeholder="Escreva sua resposta" aria-label="Resposta da Charada">
-                    <button id="sendAnswerBtn" title="Enviar Resposta"><i class="fas fa-paper-plane"></i></button>
+                    <input type="text" placeholder="Escreva sua resposta">
+                    <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
                 </div>
-                <div class="tip-section">
-                    <button id="showTipBtn" class="tip-button"><i class="fas fa-lightbulb"></i> Mostrar Dica</button>
-                </div>
+                <button class="tip-btn">
+                    <i class="fas fa-question-circle"></i> Mostrar Dica
+                </button>
             </div>
 
-            <div class="tasks-list">
-                <h3>Tarefas</h3>
-                <div class="task-item">
-                    <input type="checkbox" id="taskQrCode">
-                    <label for="taskQrCode">Encontre o QR Code</label>
-                </div>
-                <div class="task-item">
-                    <input type="checkbox" id="taskRiddle">
-                    <label for="taskRiddle">Resolva a Charada</label>
-                </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 0%;"></div>
+                <span>0%</span>
             </div>
-            
-            <div id="feedbackMessage" class="feedback-message"></div>
         </section>
-        
+
+        <section class="prize-card">
+            <p>Complete as missões para receber seu prêmio</p>
+        </section>
     </main>
     
     <script src="desafio_bica_ipu.js"></script>

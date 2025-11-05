@@ -1,16 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
-    /* Cores principais baseadas na imagem */
-    --primary-color-magenta: #000000; /* Roxo/Magenta */
-    --secondary-color-red: #D25866; /* Rosa/Vinho */
-    
-    /* Cores de fundo e texto */
-    --background-color: #fffaea; 
-    --card-background: #ffffff; 
-    --text-color: #000000;
-    --light-text-color: #000000;
-    --border-color: #110000;
+    --primary-color: #4A0072;
+    --secondary-color: #E63946;
+    --accent-color: #FDCB6E;
+    --background-color: #FFFFFF;
+    --card-background: #FFFFFF;
+    --text-color: #333333;
+    --light-text-color: #666666;
+    --footer-text-color: #E0E0E0;
+    --border-color: #E0E0E0;
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -28,266 +28,463 @@ body {
 
 .container {
     max-width: 900px;
-    margin: 20px auto;
-    padding: 0 15px;
+    margin: 30px auto;
+    padding: 0 20px;
 }
 
-/* --- Navegação Principal (Header/Menu) --- */
+.main-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    box-shadow: 0 2px 10px var(--shadow-color);
+}
 
-.main-nav {
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 15px;
-    background-color: var(--card-background);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-.main-nav h2 {
-    font-size: 1.2em;
-    font-weight: 600;
-}
-
-.nav-links a {
-    color: var(--light-text-color);
-    text-decoration: none;
-    margin-left: 15px;
-    padding: 5px 0;
+.header-title .dashboard-text {
     font-size: 0.9em;
-    transition: color 0.3s;
-}
-
-.nav-links a.active {
-    color: var(--primary-color-magenta);
     font-weight: 600;
-    border-bottom: 2px solid var(--primary-color-magenta);
+    opacity: 0.9;
 }
 
-/* --- Seção de Progresso --- */
+.header-title h1 {
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.main-nav a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.main-nav a:hover, .main-nav a.active {
+    color: white;
+}
+
+.main-card {
+    background-color: var(--card-background);
+    border-radius: 15px;
+    box-shadow: 0 8px 25px var(--shadow-color);
+    padding: 40px;
+    margin-bottom: 40px;
+    border: 1px solid #f0f0f0;
+}
 
 .investigation-progress {
     text-align: center;
-    padding-bottom: 20px;
+}
+
+.investigation-progress h3 {
+    font-size: 2.2em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.investigation-progress p {
+    color: var(--light-text-color);
+    max-width: 550px;
+    margin: 0 auto 25px;
 }
 
 .progress-bar-container {
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    height: 15px;
-    width: 80%;
-    max-width: 500px;
-    margin: 15px auto 10px;
+    background-color: #EAEAEA;
+    border-radius: 25px;
+    height: 12px;
+    width: 100%;
+    margin: 20px auto 10px;
     position: relative;
-    overflow: hidden;
 }
 
 .progress-bar {
     height: 100%;
-    background-color: var(--secondary-color-red); 
-    border-radius: 5px;
-    transition: width 0.6s ease-in-out; 
+    background-color: var(--accent-color);
+    border-radius: 25px;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    margin-top: 25px;
 }
 
 .progress-percentage {
     font-weight: 600;
-    display: block;
-    margin-top: 5px;
+    color: var(--light-text-color);
+    position: absolute;
+    right: 5px;
+    top: -38px;
 }
 
 .button-continue {
-    background-color: var(--secondary-color-red);
-    color: white;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 5px;
+    background-color: transparent;
+    color: var(--secondary-color);
+    border: 2px solid var(--secondary-color);
+    padding: 10px 28px;
+    border-radius: 8px;
     font-size: 1em;
+    font-weight: 600;
     cursor: pointer;
-    margin-top: 15px;
-    box-shadow: 0 4px 6px rgba(210, 88, 102, 0.4); 
-    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: none;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .button-continue:hover {
-    background-color: #bb4754; 
-    transform: translateY(-2px);
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(230, 57, 70, 0.45);
 }
-
-/* --- Mapa Interativo (IFRAME) --- */
 
 .interactive-map {
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
-/* Estilo para o iframe do Google Maps */
+.interactive-map h4 {
+    text-align: center;
+    font-weight: 600;
+    color: var(--light-text-color);
+    margin-bottom: 15px;
+    font-style: italic;
+}
+
 .google-map-iframe {
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    height: 300px; /* Mantém a altura definida no HTML */
+    border-radius: 15px;
+    box-shadow: 0 8px 25px var(--shadow-color);
+    height: 350px;
+    width: 100%;
+    border: 1px solid #f0f0f0;
 }
-
-/* --- História --- */
-
-.history-iracema {
-    background-color: var(--card-background);
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    margin-top: 30px;
-}
-
-.button-see-more {
-    background-color: var(--secondary-color-red); 
-    color: white;
-    border: none;
-    padding: 8px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 15px;
-}
-
-.button-see-more:hover {
-    background-color: #bb4754;
-}
-
-/* --- Desafios --- */
 
 .challenges {
-    margin-top: 30px;
+    text-align: center;
+    margin: 50px 0;
 }
 
-.challenges-list {
+.challenges h3 {
+    font-size: 2em;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.challenge-card-container {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    overflow-x: auto; 
-    padding: 5px 0;
+    justify-content: center;
+    gap: 25px;
 }
 
 .challenge-card {
-    min-width: 200px;
-    background-color: var(--card-background);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-    text-align: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    cursor: pointer;
-    border-left: 5px solid var(--primary-color-magenta);
+    border-radius: 15px;
+    width: 220px;
+    height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    position: relative;
+    background-color: #f0f0f0;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.challenge-card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent 50%);
+    opacity: 0.8;
 }
 
 .challenge-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-.lock i {
-    margin-top: 10px;
-    font-size: 1.5em;
-    color: var(--primary-color-magenta);
+.challenge-card.praça {
+    background-image: url('fotos/praca.jpg');
 }
 
-.arrow-left, .arrow-right {
-    background: none;
-    border: none;
-    font-size: 1.5em;
-    color: var(--primary-color-magenta);
-    cursor: pointer;
-    padding: 10px;
-    transition: color 0.2s;
+.challenge-card.bica:not(.locked) {
+    background-image: url('fotos/bica.jpg');
 }
 
-.arrow-left:hover, .arrow-right:hover {
-    color: var(--secondary-color-red);
+.challenge-card.igrejinha:not(.locked) {
+    background-image: url('fotos/igrejinha.jpg');
 }
 
-/* --- Rankeamento --- */
-
-.ranking {
-    margin-top: 30px;
+.challenge-card.locked {
+    background-color: #888;
+    cursor: not-allowed;
 }
 
-.ranking-list {
+.challenge-card.locked::after {
+    background: linear-gradient(to top, rgba(0,0,0,0.6), transparent 50%);
+}
+
+.challenge-card.locked:hover {
+    transform: none;
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.challenge-card .lock-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5em;
+    color: rgba(255, 255, 255, 0.6);
+    z-index: 3;
+    display: none; /* Hidden by default */
+}
+
+.challenge-card.locked .lock-icon {
+    display: block; /* Show only on locked cards */
+}
+
+.live-indicator {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.7em;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.challenge-card h4 {
+    color: white;
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    z-index: 2;
+}
+
+.points {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: var(--secondary-color);
+    color: white;
+    font-size: 0.8em;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 10px;
+    z-index: 2;
+}
+
+.carousel-dots {
+    margin-top: 25px;
+}
+
+.carousel-dots .dot {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    background: #DDC0E8;
+    border-radius: 50%;
+    margin: 0 6px;
+}
+
+.carousel-dots .dot.active {
+    background: var(--primary-color);
+}
+
+.featured-players {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.featured-players h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    color: var(--light-text-color);
+    margin-bottom: 20px;
+}
+
+.players-list {
     list-style: none;
-    background-color: var(--card-background);
-    border-radius: 8px;
-    padding: 0 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.ranking-item {
+.player-item {
     display: flex;
     align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-
-.ranking-item img {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.ranking-item span {
-    flex-grow: 1;
-    font-weight: 500;
-}
-
-.ranking-item .score {
-    font-weight: 700;
-    color: var(--primary-color-magenta); 
-}
-
-/* --- Seu Perfil --- */
-
-.user-profile {
-    margin: 30px 0 50px;
-    padding: 20px;
     background-color: var(--card-background);
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    padding: 12px 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px var(--shadow-color);
+    border: 1px solid #f0f0f0;
+    transition: transform 0.3s ease;
 }
 
-.button-see-conquests {
-    background-color: transparent;
-    color: var(--secondary-color-red); 
-    border: 1px solid var(--secondary-color-red);
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+.player-item:hover {
+    transform: translateX(5px);
+}
+
+.player-item img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    margin-right: 15px;
+}
+
+.player-info {
+    flex-grow: 1;
+    text-align: left;
+}
+
+.player-info .player-name {
+    display: block;
     font-weight: 600;
-    transition: background-color 0.3s, color 0.3s;
+    color: var(--secondary-color);
 }
 
-.button-see-conquests:hover {
-    background-color: var(--secondary-color-red);
+.player-info .player-score {
+    font-size: 0.9em;
+    color: var(--light-text-color);
+}
+
+.player-rank {
+    font-size: 1.6em;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.history-section {
+    background-color: var(--card-background);
+    border-radius: 15px;
+    padding: 30px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 8px 25px var(--shadow-color);
+    border: 1px solid #f0f0f0;
+}
+
+.history-text {
+    flex: 1;
+}
+
+.history-text h3 {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.history-text p {
+    color: var(--light-text-color);
+    margin-bottom: 20px;
+}
+
+.button-read-more {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px 25px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.button-read-more:hover {
+    background-color: #d62839;
+}
+
+.history-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.main-footer {
+    background-color: var(--primary-color);
+    color: var(--footer-text-color);
+    padding: 50px 30px;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.footer-brand h3 {
+    font-size: 1.8em;
+    font-weight: 700;
     color: white;
 }
-/* ... (CSS anterior mantido) ... */
 
-/* Estilo para o botão de continuar, agora um link */
-.button-continue {
-    background-color: var(--secondary-color-red);
+.footer-column h4 {
+    font-size: 1.2em;
+    font-weight: 600;
     color: white;
-    border: none;
-    padding: 10px 30px;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    margin-top: 15px;
-    box-shadow: 0 4px 6px rgba(210, 88, 102, 0.4); 
-    transition: background-color 0.3s, transform 0.2s;
-    /* NOVO: Estiliza o link como um botão */
-    text-decoration: none; 
-    display: inline-block; /* Permite padding e width */
+    margin-bottom: 15px;
 }
 
-.button-continue:hover {
-    background-color: #bb4754; 
-    transform: translateY(-2px);
+.footer-column ul {
+    list-style: none;
 }
 
-/* ... (Restante do CSS, incluindo o iframe, é mantido) ... */
+.footer-column ul li {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    color: var(--footer-text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: white;
+}
+
+.footer-social h4 {
+    font-size: 1.2em;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.social-icons a {
+    color: white;
+    margin-right: 15px;
+    font-size: 1.5em;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: var(--accent-color);
+}

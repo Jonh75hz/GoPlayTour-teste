@@ -1,11 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
-    --header-bg: #000000;
-    --background-color: #fcf7ef; /* Fundo bege claro (conforme imagem) */
-    --card-background: #ffffff;
-    --primary-red: #E75353; /* Cor do botão principal (vermelho/rosa) */
+    --primary-color: #4A0072;
+    --background-color: #ffffff;
     --text-color: #333;
+    --star-color: #FFD700;
 }
 
 * {
@@ -21,92 +20,109 @@ body {
     line-height: 1.6;
 }
 
-/* --- Header --- */
-.capitulo-header {
-    background-color: var(--header-bg);
-    color: var(--card-background);
-    padding: 15px 0;
-    text-align: left;
-    padding-left: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.capitulo-header h1 {
-    font-size: 1.8em;
-    font-weight: 600;
-}
-
-.capitulo-main-content {
+.main-container {
     max-width: 900px;
-    margin: 0 auto;
+    margin: 20px auto;
     padding: 20px;
 }
 
-/* --- Botão Voltar --- */
 .btn-voltar {
-    background-color: var(--header-bg);
-    color: var(--card-background);
+    background-color: var(--primary-color);
+    color: white;
     border: none;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border-radius: 5px;
     font-size: 1em;
     cursor: pointer;
-    margin-bottom: 30px;
-    transition: background-color 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn-voltar:hover {
-    background-color: #333;
-}
-
-.btn-voltar i {
-    margin-right: 5px;
-}
-
-/* --- Card de Conteúdo Principal --- */
-.chapter-content-card {
-    background-color: var(--card-background);
-    padding: 40px 30px;
-    border-radius: 10px;
-    /* Sombra mais suave para destacar o card, conforme a imagem */
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); 
-    text-align: center;
-    max-width: 600px;
-    margin: 0 auto; /* Centraliza o card na página */
-}
-
-.chapter-title {
-    font-size: 1.6em;
-    color: var(--text-color);
     margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.content-wrapper {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.chapter-header {
+    position: relative;
+    width: 100%;
+    height: 250px;
+}
+
+.chapter-header img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-overlay h1 {
+    color: white;
+    font-size: 2.8em;
+    font-weight: 700;
+}
+
+.chapter-body {
+    padding: 40px;
+    text-align: center;
+}
+
+.star-rating {
+    margin-bottom: 20px;
+    color: var(--star-color);
+    font-size: 1.5em;
 }
 
 .chapter-text {
-    color: #666;
-    margin-bottom: 30px;
-    font-size: 0.95em;
-    /* Reduz a largura do texto para centralizar o bloco */
-    max-width: 90%; 
-    margin: 0 auto 30px auto;
+    font-size: 1em;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-/* Botão "Ir para o Capítulo" */
-.btn-ir-capitulo {
-    background-color: var(--primary-red);
-    color: white;
-    border: none;
-    padding: 15px 40px;
+.clues-section {
+    margin: 40px 0;
+}
+
+.clues-section h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.clues-gallery {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.clues-gallery figure {
+    text-align: center;
+}
+
+.clues-gallery img {
+    max-width: 180px;
+    height: auto;
     border-radius: 5px;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-    width: 100%; 
-    max-width: 400px; /* Garante que o botão não seja muito largo */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.btn-ir-capitulo:hover {
-    background-color: #d84545;
-    transform: translateY(-2px);
+.clues-gallery figcaption {
+    margin-top: 10px;
+    font-style: italic;
 }

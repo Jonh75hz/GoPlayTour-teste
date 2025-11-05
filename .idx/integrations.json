@@ -1,5 +1,7 @@
 {
   "firebase_hosting": {
     "deploymentHostingUrl": "https://goplaytour-3363c.web.app"
-  }
+  },
+  "cloud_run_deploy": {},
+  "secrets_manager": {}
 }

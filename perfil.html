@@ -5,10 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perfil | O Mistério de Iracema</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="perfil.css">
+    
 </head>
 <body>
     <div class="profile-container">
+        <div class="settings-icon" id="settingsIcon">
+            <i class="fas fa-cog"></i>
+        </div>
+
+        <div class="border-selection-container" id="borderSelectionContainer">
+            <div class="border-selection">
+                <label for="border-select">Escolha sua Borda:</label>
+                <select id="border-select">
+                    <option value="none">Sem Borda</option>
+                    <option value="solid-gold">Dourada</option>
+                    <option value="solid-blue">Azul</option>
+                    <option value="solid-red">Vermelha</option>
+                    <option value="solid-green">Verde</option>
+                    <option value="solid-purple">Roxa</option>
+                    <option value="solid-silver">Prata</option>
+                </select>
+            </div>
+        </div>
+
         <div class="profile-header">
             <label for="fileInput" class="profile-pic-label">
                 <div class="profile-pic-placeholder" id="profilePicPlaceholder">
@@ -18,12 +39,13 @@
                 <img src="" alt="Foto de Perfil" class="profile-pic" id="profilePic" style="display: none;">
             </label>
             <input type="file" id="fileInput" hidden accept="image/*">
-            <h2 id="userName">Nome do Usuário</h2>
+            <h2 id="userName">Carregando...</h2>
             <div class="points-section">
                 <p>Total de Pontos</p>
-                <span class="points-display" id="userPoints">120</span><span class="star">&#9733;</span>
+                <span class="points-display" id="userPoints">--</span><span class="star">&#9733;</span>
             </div>
         </div>
+
         <div class="progress-section">
             <div class="progress-circle" data-progress="0">
                 <div class="progress-circle-inner">
@@ -59,8 +81,7 @@
         </div>
     </div>
 
-    <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="perfil.js"></script>
-    <script type="module" src="auth.js"></script>
+    <!-- Page Content Script: Cache-busting parameter forces the browser to load the latest version -->
+    <script type="module" src="perfil.js?v=final"></script>
 </body>
 </html>

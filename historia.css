@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
-    --header-bg: #000000;
-    --background-color: #fcf7ef; /* Fundo bege claro (conforme imagem) */
+    --primary-color: #4A0072;
+    --background-color: #ffffff;
     --text-color: #333;
-    --section-bg: #ffffff; /* Fundo branco para a área de leitura */
+    --chapter-title-color: #4A0072;
     --border-color: #eee;
 }
 
@@ -18,22 +18,7 @@
 body {
     background-color: var(--background-color);
     color: var(--text-color);
-    line-height: 1.8; /* Aumenta o espaçamento para melhor leitura */
-}
-
-/* --- Header --- */
-.historia-header {
-    background-color: var(--header-bg);
-    color: var(--section-bg);
-    padding: 15px 0;
-    text-align: left;
-    padding-left: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-.historia-header h1 {
-    font-size: 1.8em;
-    font-weight: 600;
+    line-height: 1.8;
 }
 
 .historia-main-content {
@@ -42,10 +27,9 @@ body {
     padding: 20px;
 }
 
-/* --- Botão Voltar --- */
 .btn-voltar {
-    background-color: var(--header-bg);
-    color: var(--section-bg);
+    background-color: var(--primary-color);
+    color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -64,22 +48,21 @@ body {
     margin-right: 5px;
 }
 
-/* --- Contêiner Principal de Leitura --- */
 .content-container {
-    background-color: var(--section-bg);
+    background-color: white;
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
 }
 
-.section-title {
-    font-size: 2em;
+.page-title {
+    font-size: 2.5em;
     font-weight: 700;
-    color: var(--text-color);
+    color: var(--primary-color);
+    text-align: center;
     margin-bottom: 25px;
 }
 
-/* Banner de Imagem */
 .image-banner {
     width: 100%;
     overflow: hidden;
@@ -94,24 +77,28 @@ body {
 }
 
 .intro-text {
-    font-size: 0.95em;
-    color: #666;
-    margin-bottom: 40px;
-    text-align: justify;
+    font-size: 1em;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    text-align: left;
 }
 
-/* --- Blocos de Capítulos --- */
 .chapter-block {
     margin-bottom: 50px;
     padding-top: 10px;
-    border-top: 1px solid var(--border-color); /* Linha divisória entre capítulos */
+}
+
+.chapter-block-2 {
+    margin-bottom: 50px;
+    padding-top: 10px;
 }
 
 .chapter-title {
-    font-size: 1.5em;
-    font-weight: 600;
-    color: var(--text-color);
+    font-size: 2em;
+    font-weight: 700;
+    color: var(--chapter-title-color);
     margin: 20px 0 25px 0;
+    text-align: center;
 }
 
 .image-group {
@@ -128,17 +115,33 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.image-group:not(.full-width) .chapter-image {
-    max-width: 45%; /* Para o layout de duas colunas (José de Alencar) */
+.image-group figure {
+    text-align: center;
+    font-style: italic;
 }
 
-.image-group.full-width .chapter-image.large {
-    width: 100%;
+.image-group .chapter-image {
+    max-width: 80%; 
 }
 
 .chapter-text {
-    font-size: 0.9em;
+    font-size: 1em;
     color: var(--text-color);
     margin-bottom: 15px;
-    text-align: justify;
+    text-align: left;
 }
+
+.chapter-2-layout {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+}
+
+.chapter-2-image {
+    flex: 1;
+}
+
+.chapter-2-text {
+    flex: 1;
+}
+

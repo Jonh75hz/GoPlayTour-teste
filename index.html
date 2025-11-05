@@ -8,119 +8,152 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
-    <header class="main-header">
-        </header>
 
-    <nav class="main-nav">
-        <h2>O Mistério de Iracema</h2>
-        <div class="nav-links">
-            <a href="#" class="active"><i class="fas fa-map-marker-alt"></i> Mapa</a>
-            <a href="historia.html"><i class="fas fa-history"></i> História</a>
-            <a href="capitulos.html"><i class="fas fa-book"></i> Enredo</a>
-            <a href="desafio_bica_ipu.html"><i class="fas fa-tasks"></i> Desafios</a>
-            <a href="login.html"><i class="fas fa-user-circle"></i> Perfil</a>
+    <header class="main-header">
+        <div class="header-content">
+            <div class="header-title">
+                <div class="dashboard-text">Dashboard</div>
+                <h1>O Mistério de Iracema</h1>
+            </div>
+            <nav class="main-nav">
+                <a href="#" class="active">Mapa</a>
+                <a href="historia.html">História</a>
+                <a href="capitulos.html">Enredo</a>
+                <a href="desafio_bica_ipu.html">Desafios</a>
+                <a href="login.html">Perfil</a>
+            </nav>
         </div>
-    </nav>
+    </header>
 
     <main class="container">
-
-        <section class="investigation-progress">
-             
-            <h3>O Desaparecimento da Estátua...</h3>
-            <p>Um mistério assola a cidade de Ipu: a estátua da praça de Iracema desapareceu</p>
-            <p>Explore a cidade, colete pistas e descubra a verdade</p>
+        <section class="main-card investigation-progress">
+            <h3>O Desaparecimento da estátua...</h3>
+            <p>Um mistério assola a cidade de Ipu: a estátua da praça de Iracema desapareceu. Explore a cidade, colete pistas e descubra a verdade.</p>
             <div class="progress-bar-container">
+                <span class="progress-percentage" id="progressPercentage">0%</span>
                 <div class="progress-bar" id="progressBar" style="width: 0%;"></div>
             </div>
-            <a href="capitulos.html" id="continueLink" class="button-continue">Prosseguir Investigação</a>
-            <span class="progress-percentage" id="progressPercentage">0%</span>
-            
-           
+            <div class="progress-info">
+                <a href="capitulos.html" id="continueLink" class="button-continue">
+                    Prosseguir Investigação <i class="fas fa-search"></i>
+                </a>
+            </div>
         </section>
 
         <section class="interactive-map">
-            <h3>Mapa Interativo</h3>
-            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6690.979870543367!2d-40.70807039835578!3d-4.3204602550149005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1759513856143!5m2!1spt-BR!2sbr" 
-                    width="100%" 
-                    height="300" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade" 
+            <h4>Mapa Interativo</h4>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6690.979870543367!2d-40.70807039835578!3d-4.3204602550149005!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1spt-BR!2sbr!4v1759513856143!5m2!1spt-BR!2sbr"
+                    allowfullscreen=""
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
                     class="google-map-iframe">
             </iframe>
         </section>
 
-        <section class="history-iracema">
-            <h3>A História de Ipu e Iracema</h3>
-            <div class="history-text">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fringilla ac lorem eu tristique. Fusce aliquet aliquet augue a egestas. Aenean interdum eget mi in commodo. Morbi pellentesque sollicitudin turpis, sit amet commodo orci commodo lacinia.</p>
-            </div>
-            <button class="button-see-more">Saiba Mais</button>
-        </section>
-
         <section class="challenges">
-            <h3>Desafios</h3>
-            <div class="challenges-list">
-                <button class="arrow-left"><i class="fas fa-chevron-left"></i></button>
-
-                <div class="challenge-card">
+            <h3>Desafios Ativos</h3>
+            <div class="challenge-card-container">
+                <div class="challenge-card praça">
+                    <div class="live-indicator">Ao vivo</div>
+                    <h4>Praça de Iracema</h4>
+                </div>
+                <div class="challenge-card bica locked">
+                    <i class="fas fa-lock lock-icon"></i>
                     <h4>Bica do Ipu</h4>
-                    <p>Resolva as charadas</p>
-                    <p>e encontre a pista.</p>
-                    <div class="lock"><i class="fas fa-lock"></i></div>
                 </div>
-
-                <div class="challenge-card">
-                    <h4>Estação Ferroviária</h4>
-                    <p>Resolva as charadas</p>
-                    <p>e encontre a pista.</p>
-                    <div class="lock"><i class="fas fa-lock"></i></div>
+                <div class="challenge-card igrejinha locked">
+                    <i class="fas fa-lock lock-icon"></i>
+                    <h4>Igrejinha do Céu</h4>
                 </div>
-
-                <div class="challenge-card">
-                    <h4>Casa de Cultura</h4>
-                    <p>Resolva as charadas</p>
-                    <p>e encontre a pista.</p>
-                    <div class="lock"><i class="fas fa-lock"></i></div>
-                </div>
-                
-                <button class="arrow-right"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="carousel-dots">
+                <span class="dot active"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
             </div>
         </section>
 
-        <section class="ranking">
-            <h3>Rankeamento</h3>
-            <ul class="ranking-list">
-                <li class="ranking-item">
-                    <img src="/fotos/kaiser.jpeg" alt="Avatar">
-                    <span>Kaiser</span>
-                    <span class="score">120 pts</span>
+        <section class="featured-players">
+            <h3>Jogadores em Destaque</h3>
+            <ul class="players-list">
+                <li class="player-item">
+                    <img src="/fotos/kaiser.jpeg" alt="Avatar de Feijão_Carioca456">
+                    <div class="player-info">
+                        <span class="player-name">Feijão_Carioca456</span>
+                        <span class="player-score"><i class="fas fa-star"></i> 1.050</span>
+                    </div>
+                    <span class="player-rank"><i class="fas fa-trophy"></i></span>
                 </li>
-                <li class="ranking-item">
-                    <img src="https://via.placeholder.com/35/D25866/FFFFFF?text=G" alt="Avatar">
-                    <span>GeroZaapGamer_2867</span>
-                    <span class="score">90 pts</span>
+                <li class="player-item">
+                    <img src="/fotos/kaguya.jpg" alt="Avatar de Garota_de_Ipanema123">
+                    <div class="player-info">
+                        <span class="player-name">Kaguya Shinomiya</span>
+                        <span class="player-score"><i class="fas fa-star"></i> 980</span>
+                    </div>
+                    <span class="player-rank"><i class="fas fa-medal"></i></span>
                 </li>
-                <li class="ranking-item">
-                    <img src="https://via.placeholder.com/35/555555/FFFFFF?text=M" alt="Avatar">
-                    <span>MarcelinhoGamer12</span>
-                    <span class="score">50 pts</span>
+                <li class="player-item">
+                    <img src="/fotos/Momo-Ayase.jpg" alt="Avatar de Marcelinho_Gamer_12">
+                    <div class="player-info">
+                        <span class="player-name">Momo </span>
+                        <span class="player-score"><i class="fas fa-star"></i> 950</span>
+                    </div>
+                    <span class="player-rank"><i class="fas fa-award"></i></span>
                 </li>
             </ul>
         </section>
 
-        <section class="user-profile">
-            <h3>Seu Perfil</h3>
-            <p>Usuário: **@Felipe_Sousa**</p>
-            <p>Conquistas: Explorador Nível 1</p>
-            <button class="button-see-conquests">Ver Conquistas</button>
+        <section class="history-section">
+            <div class="history-text">
+                <h3>A História do Ipu e de Iracema</h3>
+                <p>Mergulhe na rica história de Ipu, uma cidade cearense que combina a beleza natural da Bica do Ipu com a força da lenda de Iracema, a virgem dos lábios de mel.</p>
+                <a href="historia.html" class="button-read-more">Leia a História Completa</a>
+            </div>
+            <div class="history-image">
+                <img src="/fotos/iracema2.jpg" alt="Estátua de Iracema">
+            </div>
         </section>
-
     </main>
 
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h3>Go Play Tour</h3>
+            </div>
+            <div class="footer-column">
+                <h4>Quem Somos?</h4>
+                <ul>
+                    <li><a href="#">Sobre Nós</a></li>
+                    <li><a href="#">Fale Conosco</a></li>
+                    <li><a href="#">Guia de Turismo</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Suporte</h4>
+                <ul>
+                    <li><a href="#">Centro de Ajuda</a></li>
+                    <li><a href="#">Como Funciona</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contato</h4>
+                <ul>
+                    <li><a href="mailto:goPlayTour@gmail.com">goPlayTour@gmail.com</a></li>
+                </ul>
+            </div>
+            <div class="footer-social">
+                <h4>Nos Siga</h4>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/little.jp.kk"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     <script type="module" src="firebase-config.js"></script>
-    <script type="module" src="auth-redirect.js"></script>
+    <script type-="module" src="auth-redirect.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
