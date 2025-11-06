@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MVP Bica - CLIQUE MOBILE CORRIGIDO</title>
+
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
+
+    <style>
+      /* Removendo estilos desnecessários e garantindo fullscreen */
+      body { margin: 0; overflow: hidden; }
+      .arjs-loader { opacity: 0; } 
+    </style>
+  </head>
+
+  <body>
+    <a-scene
+      id="ar-scene"
+      vr-mode-ui="enabled: false"
+      
+      /* CORREÇÃO CRÍTICA: Raycaster agora verifica cliques em todos os objetos (o '*' é mais genérico) */
+      /* E usa 'touch' para ativar o clique */
+      raycaster="objects: *; far: 100; near: 0; showLine: false;" 
+      
+      arjs="sourceType: webcam; 
+            detectionMode: mono; 
+            debugUIEnabled: false; 
+            sourceWidth: 640; 
+            sourceHeight: 480; 
+            displayWidth: 640; 
+            displayHeight: 480;" 
+            
+      renderer="logarithmicDepthBuffer: true; alpha: true;">
+      
+      <a-assets>
+          <img id="img-bica" src="imgs/bica-do-ipu.jpg" alt="Montanha - imagem para esfera ">
+      </a-assets>
+      
+      <a-marker id="bica-marker" preset="hiro">
+    <a-sphere id="ponto-bica"
+              radius="0.5"
+              src="#img-bica"
+              position="0 1.5 0"
+              class="clickable"
+              
+              /* NOVO: Aumenta a suavidade horizontal e vertical da esfera */
+              segments-width="120"
+              segments-height="120"
+              
+              /* Mantido o shader flat para cores vibrantes */
+              material="shader: flat;"> 
+        <a-text value="BICA DO IPU: CLIQUE!"
+                align="center"
+                position="0 0.8 0"
+                scale="1.2 1.2 1.2"
+                color="white"></a-text>
+    </a-sphere>
+</a-marker>
+
+      <a-entity 
+        camera 
+        /* Cursor com 'fuse: false' para desativar o timer e 'rayOrigin: cursor' (melhor para touch) */
+        cursor="fuse: false; rayOrigin: cursor; objects: .clickable;"
+      ></a-entity> 
+      
+    </a-scene>
+
+    <div id="descricao-overlay" style="display: none;"></div>
+
+    <script>
+    
+      const pontoBica = document.querySelector('#ponto-bica');
+      
+      // O ENDEREÇO DA SUA PÁGINA DE DESTINO
+      const DESTINATION_URL = 'sobre-a-bica.html'; 
+      // Crie uma página chamada 'sobre-a-bica.html' no mesmo diretório!
+
+      // CLIQUE NA ESFERA: REDIRECIONA PARA A NOVA PÁGINA
+      pontoBica.addEventListener('click', function () {
+        console.log('Redirecionando para:', DESTINATION_URL);
+        // Implementa o redirecionamento (Ação de link)
+        window.location.href = DESTINATION_URL;
+      });
+      
+      // Logs para monitorar (opcional)
+      const bicaMarker = document.querySelector('#bica-marker');
+      bicaMarker.addEventListener('markerFound', () => {
+        console.log('marker encontrado');
+      });
+      bicaMarker.addEventListener('markerLost', () => {
+        console.log('marker perdido');
+      });
+
+    </script>
+  </body>
+</html>

@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Capítulo 1 | Primeiras Pistas</title>
+    <title>Capítulo 3 | Escaneie o QR Code</title>
     <link rel="stylesheet" href="capitulos_conteudo.css"> 
+    <link rel="stylesheet" href="capitulo_2.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -13,53 +14,27 @@
     </header>
 
     <main class="capitulo-main-content">
-        <button class="btn-voltar" onclick="window.location.href='capitulos.html'">
+        <button class="btn-voltar" onclick="window.location.href='capitulo_1.html'">
             <i class="fas fa-arrow-left"></i> Voltar
         </button>
 
         <section class="chapter-content-card">
-            <h2 class="chapter-title">Capítulo 1: Primeiras Pistas</h2>
+            <h2 class="chapter-title">Capítulo 3: QR Code Misterioso</h2>
             
             <div class="chapter-banner">
-                <img src="fotos/praca.jpg" alt="Cena do Capítulo 2: Bica do Ipu" class="banner-image">
+                <img src="fotos/simbolo-de-interface-de-camera-fotografica-para-botao.png" alt="Câmera para escanear QR Code" class="imagem-camera" class="simbolocamera">
             </div>
 
             <div class="chapter-text-block">
                 <p>
-                    Rumores apontam para a **Bica do Ipu**, um local onde história, mitos e natureza se encontram. A lenda diz que a beleza da queda d'água esconde um segredo dos antigos índios tabajaras, algo relacionado à verdadeira história de Iracema.
-                </p>
-                <p>
-                    Nosso próximo passo é investigar a área da Bica. Dizem que um velho morador deixou uma série de charadas e um QR Code escondido que revelará a próxima localização da estátua. Precisamos seguir as pistas.
+                    Um QR Code misterioso foi deixado nas proximidades da Bica do Ipu. Use a câmera para escaneá-lo e descobrir a próxima pista de nossa jornada.
                 </p>
             </div>
 
-
-            <div class="items-found-section">
-                <h3>Itens Encontrados:</h3>
-                <ul>
-                    <li>*Chave (Desbloqueado)</li>
-                    <li>*Escritura</li>
-                    <li>*Cartas</li>
-                </ul>
-
-                <div class="item-gallery">
-                    <div class="item-thumbnail">
-                        <img src="fotos/chave.jpg" alt="chave">
-                        <span>Chave</span>
-                    </div>
-                    <div class="item-thumbnail">
-                        <img src="fotos/carta.jpg" alt="escritura">
-                        <span>Escritura</span>
-                    </div>
-                    <div class="item-thumbnail">
-                        <img src="fotos/cartas.jpg" alt="cartas">
-                        <span>Cartas</span>
-                    </div>
-                </div>
-            </div>
-            
-            </section>
-        
+            <button class="btn-progredir" onclick="window.location.href='scanear_camera.html'" style="margin-top: 20px;">
+                Abrir Câmera
+            </button>
+        </section>
     </main>
 </body>
 </html>

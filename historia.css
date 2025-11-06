@@ -18,7 +18,23 @@
 body {
     background-color: var(--background-color);
     color: var(--text-color);
-    line-height: 1.8;
+    line-height: 1.8; /* Aumenta o espaçamento para melhor leitura */
+}
+
+/* --- Header --- */
+.historia-header {
+    background-color: var(--header-bg);
+    color: var(--section-bg);
+    padding: 15px 0;
+    text-align: left;
+    padding-left: 20x;
+    box-shadow: 0 4px 6px rgba(85, 10, 89, 0.2);
+    
+}
+
+.historia-header h1 {
+    font-size: 1.8em;
+    font-weight: 600;
 }
 
 .historia-main-content {
