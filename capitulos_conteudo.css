@@ -4,7 +4,7 @@
 
 :root {
     --header-bg: #000000;
-    --background-color: #fcf7ef; /* Fundo bege claro */
+    --background-color: #ffffff; /* Fundo bege claro */
     --card-background: #ffffff;
     --primary-red: #E75353;
     --text-color: #333;
@@ -57,10 +57,6 @@ body {
     margin-bottom: 30px;
     transition: background-color 0.2s;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.btn-voltar:hover {
-    background-color: #333;
 }
 
 .btn-voltar i {

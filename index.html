@@ -19,7 +19,7 @@
                 <a href="#" class="active">Mapa</a>
                 <a href="historia.html">História</a>
                 <a href="capitulos.html">Enredo</a>
-                <a href="desafio_bica_ipu.html">Desafios</a>
+                <a href="#desafios-ativos">Desafios</a>
                 <a href="login.html">Perfil</a>
             </nav>
         </div>
@@ -50,25 +50,36 @@
             </iframe>
         </section>
 
-        <section class="challenges">
+        <section class="challenges" id="desafios-ativos">
             <h3>Desafios Ativos</h3>
-            <div class="challenge-card-container">
-                <div class="challenge-card praça">
-                    <div class="live-indicator">Ao vivo</div>
-                    <h4>Praça de Iracema</h4>
+            <div class="carousel-container">
+                <button class="carousel-arrow prev"><i class="fas fa-chevron-left"></i></button>
+                <div class="challenge-card-container">
+                    <div class="challenge-card praça">
+                        <div class="live-indicator">Ao vivo</div>
+                        <h4>Praça de Iracema</h4>
+                    </div>
+                    <div class="challenge-card estacao locked">
+                        <i class="fas fa-lock lock-icon"></i>
+                        <h4>Estação Ferroviária</h4>
+                    </div>
+                    <div class="challenge-card casa-cultura locked">
+                        <i class="fas fa-lock lock-icon"></i>
+                        <h4>Casa de Cultura</h4>
+                    </div>
+                    <div class="challenge-card igrejinha locked">
+                        <i class="fas fa-lock lock-icon"></i>
+                        <h4>Igrejinha do Céu</h4>
+                    </div>
+                    <div class="challenge-card bica locked">
+                        <i class="fas fa-lock lock-icon"></i>
+                        <h4>Bica do Ipu</h4>
+                    </div>
                 </div>
-                <div class="challenge-card bica locked">
-                    <i class="fas fa-lock lock-icon"></i>
-                    <h4>Bica do Ipu</h4>
-                </div>
-                <div class="challenge-card igrejinha locked">
-                    <i class="fas fa-lock lock-icon"></i>
-                    <h4>Igrejinha do Céu</h4>
-                </div>
+                <button class="carousel-arrow next"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="carousel-dots">
                 <span class="dot active"></span>
-                <span class="dot"></span>
                 <span class="dot"></span>
             </div>
         </section>
@@ -79,7 +90,7 @@
                 <li class="player-item">
                     <img src="/fotos/kaiser.jpeg" alt="Avatar de Feijão_Carioca456">
                     <div class="player-info">
-                        <span class="player-name">Feijão_Carioca456</span>
+                        <span class="player-name">Kaiser Ronaldo</span>
                         <span class="player-score"><i class="fas fa-star"></i> 1.050</span>
                     </div>
                     <span class="player-rank"><i class="fas fa-trophy"></i></span>

@@ -26,23 +26,24 @@ body {
 }
 
 .capitulos-header {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 15px 20px;
+    background-color: transparent;
+    color: var(--primary-color);
+    padding: 20px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .capitulos-header h1 {
-    font-size: 1.8em;
-    font-weight: 600;
+    font-size: 2.5em;
+    font-weight: 700;
+    flex-grow: 1;
 }
 
 .capitulos-main-content {
-    max-width: 800px;
+    max-width: 900px;
     margin: 0 auto;
     padding: 0 20px;
 }
@@ -51,13 +52,16 @@ body {
     background-color: var(--primary-color);
     color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 8px 18px;
+    border-radius: 20px;
     font-size: 1em;
     cursor: pointer;
-    margin-bottom: 30px;
     transition: background-color 0.2s;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .btn-voltar:hover {
@@ -69,9 +73,10 @@ body {
 }
 
 .capitulos-container {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 25px;
+    justify-content: center;
 }
 
 .capitulo-card {
@@ -79,15 +84,21 @@ body {
     padding: 25px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    text-align: left;
     position: relative;
     transition: transform 0.3s, box-shadow 0.3s;
-    max-width: 600px; 
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.capitulo-card:last-child {
+    grid-column: span 2;
+    max-width: calc(50% - 12.5px);
+    justify-self: center;
 }
 
 .capitulo-card.unlocked {
-    cursor: pointer; 
+    cursor: pointer;
 }
 
 .capitulo-card.unlocked:hover {
@@ -105,22 +116,22 @@ body {
     color: var(--light-text-color);
     margin-bottom: 20px;
     font-size: 0.9em;
+    flex-grow: 1;
 }
 
 .btn-ir-capitulo {
     background-color: var(--secondary-color);
     color: white;
     border: none;
-    padding: 12px 40px;
+    padding: 12px 20px;
     border-radius: 5px;
-    font-size: 1.1em;
+    font-size: 1em;
     font-weight: 600;
     cursor: pointer;
     transition: background-color 0.3s;
-    width: 90%; 
-    max-width: 400px;
-    display: block; 
-    margin: 15px auto 0 auto;
+    width: 100%;
+    display: block;
+    margin-top: auto;
 }
 
 .btn-ir-capitulo:hover:not(.disabled) {
@@ -128,7 +139,6 @@ body {
 }
 
 .capitulo-card.locked {
-    opacity: 0.5;
     pointer-events: none;
 }
 
@@ -144,6 +154,12 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.capitulo-card.locked .lock-overlay {
+    opacity: 1;
 }
 
 .lock-overlay i {

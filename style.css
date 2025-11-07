@@ -1,3 +1,7 @@
+html {
+    scroll-behavior: smooth;
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
@@ -181,17 +185,22 @@ body {
     margin-bottom: 30px;
 }
 
+.carousel-container {
+    position: relative;
+}
+
 .challenge-card-container {
     display: flex;
     justify-content: center;
     gap: 25px;
+    align-items: center;
 }
 
 .challenge-card {
     border-radius: 15px;
     width: 220px;
     height: 180px;
-    display: flex;
+    display: none; /* Hide all cards by default */
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
@@ -202,6 +211,10 @@ body {
     background-position: center;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.challenge-card.active {
+    display: flex; /* Show active card */
 }
 
 .challenge-card::after {
@@ -282,6 +295,10 @@ body {
     z-index: 2;
 }
 
+.challenge-card.locked h4 {
+    display: none;
+}
+
 .points {
     position: absolute;
     bottom: 10px;
@@ -294,6 +311,34 @@ body {
     border-radius: 10px;
     z-index: 2;
 }
+
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.carousel-arrow:hover {
+    background-color: #d62839;
+}
+
+.carousel-arrow.prev {
+    left: -50px;
+}
+
+.carousel-arrow.next {
+    right: -50px;
+}
+
 
 .carousel-dots {
     margin-top: 25px;

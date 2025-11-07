@@ -1,24 +1,144 @@
-.imagem-camera {
-    width: 50%; /* Ajusta a largura da imagem */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --primary-color: #4A0072;
+    --secondary-color: #E63946;
+    --background-color: #F4F4F9;
+    --card-background: #FFFFFF;
+    --text-color: #333;
+    --light-text-color: #666;
+    --star-color: #FFD700;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    position: relative;
+    padding: 20px;
+}
+
+.btn-voltar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    z-index: 10;
+    transition: background-color 0.3s;
+}
+
+.btn-voltar:hover {
+    background-color: #3a005c;
+}
+
+.capitulo-container {
+    max-width: 800px;
+    margin: 40px auto 0;
+    background-color: var(--card-background);
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.capitulo-header {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/fotos/Estação.jpg') no-repeat center center;
+    background-size: cover;
+    color: white;
+    padding: 80px 20px;
+    text-align: center;
+}
+
+.capitulo-header h1 {
+    font-size: 3em;
+    font-weight: 700;
+}
+
+.capitulo-body {
+    padding: 30px;
+    text-align: center;
+}
+
+.stars {
+    margin-bottom: 20px;
+    color: var(--star-color);
+}
+
+.capitulo-body p {
+    text-align: justify;
+    margin-bottom: 30px;
+    color: var(--light-text-color);
+    line-height: 1.8;
+}
+
+.pistas-encontradas {
+    margin-top: 40px;
+}
+
+.pistas-encontradas h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.pistas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.pista-card {
+    background-color: var(--card-background);
+    border-radius: 10px;
+    text-align: center;
+    padding: 10px;
+    transition: transform 0.3s;
+}
+
+.pista-card:hover {
+    transform: translateY(-5px);
+}
+
+.pista-card img {
+    max-width: 100%;
+    border-radius: 5px;
+    border: 1px solid #eee;
+}
+
+.pista-card p {
+    margin-top: 10px;
+    font-weight: 600;
+    color: #000;
+    text-align: center;
+}
+
+.progredir-container {
+    text-align: center;
+    margin-top: 20px;
 }
 
 .btn-progredir {
-    background-color: #E75353;
+    background-color: var(--secondary-color);
     color: white;
     border: none;
-    border-radius: 12px; /* Bordas arredondadas */
-    padding: 15px 30px; /* Aumenta o tamanho do botão */
-    font-size: 16px;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1.1em;
+    font-weight: 600;
     cursor: pointer;
-    display: block;
-    margin: 20px auto; /* Centraliza o botão */
+    transition: background-color 0.3s;
 }
 
-.capitulo-header{
-    background-color: #4A0072;
-}
-
-
-.btn-voltar{
-      background-color: #4A0072;
+.btn-progredir:hover {
+    background-color: #d62839;
 }
