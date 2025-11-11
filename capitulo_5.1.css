@@ -1,0 +1,24 @@
+.imagem-camera {
+    width: 50%; /* Ajusta a largura da imagem */
+}
+
+.btn-progredir {
+    background-color: #E75353;
+    color: white;
+    border: none;
+    border-radius: 12px; /* Bordas arredondadas */
+    padding: 15px 30px; /* Aumenta o tamanho do botão */
+    font-size: 16px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto; /* Centraliza o botão */
+}
+
+.capitulo-header{
+    background-color: #4A0072;
+}
+
+
+.btn-voltar{
+      background-color: #4A0072;
+}
