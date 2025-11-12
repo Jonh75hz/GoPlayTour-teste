@@ -211,6 +211,7 @@ body {
     background-position: center;
     overflow: hidden;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .challenge-card.active {
@@ -234,14 +235,23 @@ body {
 }
 
 .challenge-card.praça {
-    background-image: url('fotos/praca.jpg');
+    background-image: url('fotos/pracadeiracema.jpg');
 }
 
-.challenge-card.bica:not(.locked) {
+.challenge-card.estacao {
+    background-image: url('fotos/Estação.jpg');
+}
+
+.challenge-card.casa-cultura {
+    background-image: url('fotos/cultura.jpg');
+}
+
+
+.challenge-card.bica {
     background-image: url('fotos/bica.jpg');
 }
 
-.challenge-card.igrejinha:not(.locked) {
+.challenge-card.igrejinha {
     background-image: url('fotos/igrejinha.jpg');
 }
 

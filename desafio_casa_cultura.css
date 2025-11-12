@@ -39,7 +39,7 @@ body {
     position: absolute;
     top: 25px;
     left: 25px;
-    transition: background-color 0.3s ease;
+    transition: background-color: 0.3s ease;
 }
 
 .back-button i {
