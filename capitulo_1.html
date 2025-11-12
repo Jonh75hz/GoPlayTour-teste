@@ -31,12 +31,21 @@
                     <i class="far fa-star"></i>
                 </div>
 
-                <p class="chapter-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fringilla ac lorem eu tristique. Fusce aliquet aliquet augue a egestas. Aenean interdum eget mi in commodo. Morbi pellentesque sollicitudin turpis, sit amet commodo orci sollicitudin quis.
-                </p>
-                <p class="chapter-text">
-                    Praesent rhoncus mollis dui sed accumsan. Morbi elit urna, pulvinar et sem et, viverra iaculis lectus. Morbi at tincidunt lectus. Curabitur augue turpis, ullamcorper et massa a, placerat ullamcorper nibh. Vestibulum mauris risus, pharetra nec malesuada vitae, condimentum eu nibh. Integer at porta felis. Duis volutpat viverra eros, eget tincidunt tellus.
-                </p>
+                <!-- Slider de telas: conteúdo dinâmico que muda ao clicar na seta -->
+                <div class="text-slider">
+                    <p class="chapter-text" id="text-content">No centro, a estátua de Iracema observa o vazio.\nNão a original — aquela foi demolida há meio século, sem explicação clara, soterrada por reformas e descuido.\nEsta é nova, limpa, de pedra clara, olhando o horizonte como quem tenta se lembrar de algo que esqueceu.</p>
+                </div>
+
+                <!-- Paginação / controle com setas abaixo do texto (Prev / Page / Next) -->
+                <div class="pagination-container">
+                    <button class="arrow-btn prev" id="prev-btn" onclick="prevScreen()" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="page-indicator" id="page-indicator">1 / 5</div>
+                    <button class="arrow-btn next" id="next-btn" onclick="nextScreen()">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
 
                 <div class="clues-section">
                     <h2>Pistas Encontradas <i class="fas fa-search"></i></h2>
@@ -61,5 +70,74 @@
                 Progredir Enredo
             </button>
     </main>
+    <script>
+        // Conteúdos das telas (cada item pode conter quebras de linha)
+        const screens = [
+            `No centro, a estátua de Iracema observa o vazio.
+Não a original — aquela foi demolida há meio século, sem explicação clara, soterrada por reformas e descuido.
+Esta é nova, limpa, de pedra clara, olhando o horizonte como quem tenta se lembrar de algo que esqueceu.`,
+
+            `O registro oficial diz que a antiga foi retirada por estar muito velha.
+Mas há quem diga que ela “simplesmente decidiu partir”.
+As versões mudam, as datas não batem, e os arquivos públicos estão incompletos — como se alguém tivesse apagado um parágrafo inteiro da história.`,
+
+            `Você começa a circular a praça.
+O caminhoneiro, de braços cruzados, fala pouco — mas menciona que o piso de pedra foi trocado às pressas, “na época do sumiço”.
+O açougueiro lembra de ver caixotes sendo levados à noite, sem marca de prefeitura.
+O marceneiro só diz:
+
+“A velha Iracema nunca quebrou. Ela foi calada.”`,
+
+            `Nada de relâmpagos, nada de rachaduras misteriosas.
+Só o peso do tempo, as versões contraditórias e uma cidade que aprendeu a conviver com o esquecimento.
+Mas há algo ali — um detalhe no pedestal, quase técnico, como uma assinatura antiga que sobreviveu à demolição.`,
+
+            `Perto da estátua você avista um símbolo estranho, algo que não deveria estar ali, mas que pode ajudar-te a desvendar esse mistério
+(escaneio o código para prosseguir)
+
+Você levanta os olhos.
+O vento passa, levantando poeira e folhas secas, e por um instante o som da Bica parece ecoar como um trem distante, partindo.
+A cidade guarda seus segredos — e o primeiro acabou de acordar.`
+        ];
+
+        let current = 0;
+    const total = screens.length;
+    const contentEl = document.getElementById('text-content');
+    const indicatorEl = document.getElementById('page-indicator');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+
+        function renderScreen(index) {
+            // substitui quebras \n por quebras visuais via white-space: pre-wrap
+            contentEl.textContent = screens[index];
+            indicatorEl.textContent = `${index + 1} / ${total}`;
+        }
+
+        function nextScreen() {
+            if (current < total - 1) {
+                current += 1;
+                renderScreen(current);
+            }
+            updateButtons();
+        }
+
+        function prevScreen() {
+            if (current > 0) {
+                current -= 1;
+                renderScreen(current);
+            }
+            updateButtons();
+        }
+
+        function updateButtons() {
+            // Atualiza estado dos botões prev/next conforme tela atual
+            prevBtn.disabled = current === 0;
+            nextBtn.disabled = current === total - 1;
+        }
+
+        // Inicializa
+        renderScreen(current);
+        updateButtons();
+    </script>
 </body>
 </html>

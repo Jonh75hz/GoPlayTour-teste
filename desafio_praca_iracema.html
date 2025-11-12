@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio | Praça de Iracema</title>
+    <link rel="stylesheet" href="desafio_praca_iracema.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <main class="main-container">
+        <button class="btn-voltar" onclick="history.back()">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </button>
+
+        <h1 class="main-title">Desafios na Praça de Iracema</h1>
+
+        <div class="image-banner">
+            <img src="fotos/desafio_praça.jpg" alt="Praça de Iracema">
+            <p>Mistérios giram em torno da Praça de Iracema</p>
+        </div>
+
+        <section class="missions-card">
+            <h2>Missões</h2>
+            <div class="riddle-section">
+                <h3>Resolva a Charada</h3>
+                <p>O que é que todo mundo vem ver, mas não dá pra beber?</p>
+                <div class="response-area">
+                    <input type="text" placeholder="Escreva sua resposta">
+                    <button class="send-btn"><i class="fas fa-paper-plane"></i></button>
+                </div>
+                <button class="tip-btn">
+                    <i class="fas fa-question-circle"></i> Mostrar Dica
+                </button>
+            </div>
+
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 0%;"></div>
+                <span>0%</span>
+            </div>
+        </section>
+
+        <section class="prize-card">
+            <p>Complete as missões para receber seu prêmio</p>
+        </section>
+    </main>
+    
+    <script src="desafio_bica_ipu.js"></script>
+</body>
+</html>

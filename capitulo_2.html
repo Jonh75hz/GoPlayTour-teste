@@ -23,9 +23,21 @@
                 <i class="far fa-star"></i>
                 <i class="far fa-star"></i>
             </div>
-            <p>
-                A estação teve papel central no crescimento econômico de Ipu, especialmente nos fins do século XIX e início do XX. A ferrovia facilitava o escoamento de produtos agrícolas (algodão, por exemplo) e o contato comercial com a região da Serra da Ibiapaba.
-            </p>
+
+            <!-- Slider de texto com navegação Prev/Next -->
+            <div class="text-slider">
+                <p class="chapter-text" id="text-content">A estação teve papel central no crescimento econômico de Ipu, especialmente nos fins do século XIX e início do XX. A ferrovia facilitava o escoamento de produtos agrícolas (algodão, por exemplo) e o contato comercial com a região da Serra da Ibiapaba.</p>
+            </div>
+
+            <div class="pagination-container">
+                <button class="arrow-btn prev" id="prev-btn" onclick="prevScreen()" disabled>
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="page-indicator" id="page-indicator">1 / 6</div>
+                <button class="arrow-btn next" id="next-btn" onclick="nextScreen()">
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
 
             <section class="pistas-encontradas">
                 <h2>Pistas Encontradas <i class="fas fa-search"></i></h2>
@@ -50,5 +62,68 @@
     <div class="progredir-container">
         <button class="btn-progredir" onclick="window.location.href='capitulo_2.1.html'">Progredir Enredo</button>
     </div>
+
+    <script>
+        const screens = [
+`A Estação aparece como um estranho anacronismo. Colunas simples, de inspiração greco-romana, sustentam a fachada —  A combinação de linhas retas e arcos dá a impressão de que o prédio foi desenhado para durar mais que qualquer governo.`,
+
+`O prédio chama atenção de longe: amarelo forte, detalhes brancos, tudo alinhado como se tivesse sido desenhado com régua. Três arcos se apoiam em colunas grossas bem na entrada.
+Parece sério. Parece importante.`,
+
+`Todo mundo na cidade sabe: aqui funciona a biblioteca pública da cidade.
+Talvez esteja aberta hoje. Talvez não.
+Depende do dia, depende da história — essa estação vive mudando de função.`,
+
+`Da rua, dá pra ver as portas grandes, cinza escuro.
+Paradas. Silenciosas.
+Você tem a sensação de que, se alguém empurrar, pode aparecer uma pessoa do passado dizendo que desceu do trem errado.`,
+
+`Abaixo das fotos, há um envelope fino, preso com um clipe enferrujado. Dentro, um recorte de jornal:
+
+“Testemunhas afirmam que a remoção foi planejada. Autoridades negam.”
+E, no verso do papel, alguém escreveu à mão, com pressa:
+“Procure quem trabalha com madeira. Ele viu.`,
+
+`Com o envelope na mão, você percebe um pequeno adesivo colado discretamente no canto inferior do painel. O mesmo símbolo que encontrou na Praça. Pequeno demais para ser publicidade. Intencional demais para ser acaso.
+
+Ele parece apontar uma direção: o bairro industrial, mais abaixo, onde fica a oficina.`
+        ];
+
+        let current = 0;
+        const total = screens.length;
+        const contentEl = document.getElementById('text-content');
+        const indicatorEl = document.getElementById('page-indicator');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function renderScreen(index) {
+            contentEl.textContent = screens[index];
+            indicatorEl.textContent = `${index + 1} / ${total}`;
+        }
+
+        function nextScreen() {
+            if (current < total - 1) {
+                current += 1;
+                renderScreen(current);
+            }
+            updateButtons();
+        }
+
+        function prevScreen() {
+            if (current > 0) {
+                current -= 1;
+                renderScreen(current);
+            }
+            updateButtons();
+        }
+
+        function updateButtons() {
+            prevBtn.disabled = current === 0;
+            nextBtn.disabled = current === total - 1;
+        }
+
+        renderScreen(current);
+        updateButtons();
+    </script>
 </body>
 </html>

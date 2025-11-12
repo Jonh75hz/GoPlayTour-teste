@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    --primary-color: #4A0072;
+    --background-color: #ffffff; /* Light purple background */
+    --card-background: #ffffff;
+    --text-color: #333;
+    --light-text-color: #666;
+    --border-color: #e0e0e0;
+    --progress-bar-color: #FFD700; /* Gold/Yellow */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.main-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.btn-voltar {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px 25px;
+    border-radius: 5px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.main-title {
+    font-size: 2.2em;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.image-banner {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    margin-bottom: 10px;
+}
+
+.image-banner img {
+    width: 100%;
+    display: block;
+}
+
+.image-banner p {
+    font-style: italic;
+    text-align: center;
+    color: var(--light-text-color);
+    padding: 5px;
+    font-size: 0.9em;
+}
+
+.missions-card, .prize-card {
+    background-color: var(--card-background);
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    margin-top: 30px;
+}
+
+.missions-card h2 {
+    font-size: 1.8em;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.riddle-section h3 {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.riddle-section p {
+    color: var(--light-text-color);
+    margin-bottom: 20px;
+}
+
+.response-area {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    border-radius: 25px;
+    padding: 5px 15px;
+    margin-bottom: 15px;
+}
+
+.response-area input {
+    flex-grow: 1;
+    border: none;
+    outline: none;
+    font-size: 1em;
+    padding: 8px;
+    background: transparent;
+}
+
+.send-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: var(--light-text-color);
+}
+
+.tip-btn {
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+}
+
+.progress-bar-container {
+    background-color: #f0f0f0;
+    border-radius: 25px;
+    height: 15px;
+    width: 100%;
+    position: relative;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--progress-bar-color);
+    border-radius: 25px;
+}
+
+.progress-bar-container span {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 600;
+    color: var(--light-text-color);
+}
+
+.prize-card {
+    text-align: center;
+}
+
+.prize-card p {
+    color: #a0a0a0; /* Grayed out text */
+    font-size: 1.1em;
+}
