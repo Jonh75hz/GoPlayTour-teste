@@ -26,8 +26,8 @@ body {
 
 .btn-voltar {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 360px;
     background-color: var(--primary-color);
     color: white;
     padding: 10px 20px;
@@ -44,7 +44,7 @@ body {
 
 .capitulo-container {
     max-width: 800px;
-    margin: 40px auto 0;
+    margin: 50px auto 0;
     background-color: var(--card-background);
     border-radius: 15px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);

@@ -42,5 +42,67 @@
             <p>Complete as missões para receber seu prêmio</p>
         </div>
     </div>
+
+    <!-- Overlay mostrado quando o desafio estiver bloqueado -->
+    <div id="lockedOverlay" class="locked-overlay" style="display:none;">
+        <div class="locked-inner">
+            <i class="fas fa-lock fa-3x"></i>
+            <h2>Desafio Bloqueado</h2>
+            <p>Use o scanner para desbloquear este desafio.</p>
+            <a href="capitulo_4.1.html" class="button-continue">Abrir Scanner</a>
+        </div>
+    </div>
+
+    <script type="module">
+    import { auth, database } from './firebase-config.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
+    import { ref, get } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+
+    const overlay = document.getElementById('lockedOverlay');
+
+    function showLocked() {
+      overlay.style.display = 'flex';
+      // Desabilitar interações principais
+      document.querySelectorAll('.missions-card input, .missions-card button').forEach(el => el.disabled = true);
+    }
+
+    function hideLocked() {
+      overlay.style.display = 'none';
+    }
+
+    // Checa primeiro localStorage, depois Firebase (se autenticado)
+    async function checkUnlocked() {
+      try {
+        const local = localStorage.getItem('unlocked_igrejinha_ceu');
+        if (local === 'true') { hideLocked(); return; }
+
+        // se houver firebase, verifica se o usuário está autenticado e tem o desbloqueio
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            try {
+              const snap = await get(ref(database, `users/${user.uid}/unlocked/igrejinha_ceu`));
+              if (snap && snap.exists && snap.val() === true) {
+                localStorage.setItem('unlocked_igrejinha_ceu','true');
+                hideLocked();
+              } else {
+                showLocked();
+              }
+            } catch (err) {
+              console.warn('Erro ao verificar banco, mostrando bloqueado por segurança', err);
+              showLocked();
+            }
+          } else {
+            // usuário não autenticado e sem localStorage: bloqueado
+            showLocked();
+          }
+        });
+      } catch (e) {
+        console.warn('Erro ao checar desbloqueio, fallback: bloquear', e);
+        showLocked();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', checkUnlocked);
+    </script>
 </body>
 </html>

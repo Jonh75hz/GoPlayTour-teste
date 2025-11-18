@@ -31,12 +31,20 @@
                     <i class="far fa-star"></i>
                 </div>
 
-                <p class="chapter-text">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fringilla ac lorem eu tristique. Fusce aliquet aliquet augue a egestas. Aenean interdum eget mi in commodo. Morbi pellentesque sollicitudin turpis, sit amet commodo orci sollicitudin quis.
-                </p>
-                <p class="chapter-text">
-                    Praesent rhoncus mollis dui sed accumsan. Morbi elit urna, pulvinar et sem et, viverra iaculis lectus. Morbi at tincidunt lectus. Curabitur augue turpis, ullamcorper et massa a, placerat ullamcorper nibh. Vestibulum mauris risus, pharetra nec malesuada vitae, condimentum eu nibh. Integer at porta felis. Duis volutpat viverra eros, eget tincidunt tellus.
-                </p>
+                <!-- Slider de texto com navegação Prev/Next -->
+                <div class="text-slider">
+                    <p class="chapter-text" id="text-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fringilla ac lorem eu tristique.</p>
+                </div>
+
+                <div class="pagination-container">
+                    <button class="arrow-btn prev" id="prev-btn" onclick="prevScreen()" disabled>
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                    <div class="page-indicator" id="page-indicator">1 / 5</div>
+                    <button class="arrow-btn next" id="next-btn" onclick="nextScreen()">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
 
                 <div class="clues-section">
                     <h2>Pistas Encontradas <i class="fas fa-search"></i></h2>
@@ -61,5 +69,50 @@
                 Progredir Enredo
             </button>
     </main>
+    <script>
+        const screens = [
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+            'Quisque fringilla ac lorem eu tristique. Fusce aliquet aliquet augue a egestas.',
+            'Aenean interdum eget mi in commodo. Morbi pellentesque sollicitudin turpis.',
+            'Praesent rhoncus mollis dui sed accumsan. Morbi elit urna, pulvinar et sem et.',
+            'Viverra iaculis lectus. Morbi at tincidunt lectus. Curabitur augue turpis.'
+        ];
+
+        let current = 0;
+        const total = screens.length;
+        const contentEl = document.getElementById('text-content');
+        const indicatorEl = document.getElementById('page-indicator');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+
+        function renderScreen(index) {
+            contentEl.textContent = screens[index];
+            indicatorEl.textContent = `${index + 1} / ${total}`;
+        }
+
+        function nextScreen() {
+            if (current < total - 1) {
+                current += 1;
+                renderScreen(current);
+            }
+            updateButtons();
+        }
+
+        function prevScreen() {
+            if (current > 0) {
+                current -= 1;
+                renderScreen(current);
+            }
+            updateButtons();
+        }
+
+        function updateButtons() {
+            prevBtn.disabled = current === 0;
+            nextBtn.disabled = current === total - 1;
+        }
+
+        renderScreen(current);
+        updateButtons();
+    </script>
 </body>
 </html>

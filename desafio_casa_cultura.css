@@ -170,3 +170,33 @@ body {
     color: var(--light-text-color);
     font-weight: 600;
 }
+
+/* Overlay quando o desafio está bloqueado */
+.locked-overlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.45);
+    z-index: 9999;
+}
+.locked-inner {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 16px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    max-width: 420px;
+}
+.locked-inner h2 { color: var(--primary-color); margin-top: 12px; }
+.locked-inner p { color: var(--light-text-color); margin-bottom: 18px; }
+.locked-inner .button-continue {
+    display: inline-block;
+    background: var(--button-background);
+    color: var(--button-text-color);
+    padding: 10px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 600;
+}

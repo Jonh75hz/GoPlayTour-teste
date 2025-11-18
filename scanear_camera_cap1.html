@@ -69,29 +69,61 @@
 
     <div id="descricao-overlay" style="display: none;"></div>
 
-    <script>
-    
-      const pontoBica = document.querySelector('#ponto-bica');
-      
-      // O ENDEREÇO DA SUA PÁGINA DE DESTINO
-      const DESTINATION_URL = 'sobre-a-bica.html'; 
-      // Crie uma página chamada 'sobre-a-bica.html' no mesmo diretório!
+    <script type="module">
+    import { auth, database } from './firebase-config.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
+    import { ref, set } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
 
-      // CLIQUE NA ESFERA: REDIRECIONA PARA A NOVA PÁGINA
-      pontoBica.addEventListener('click', function () {
-        console.log('Redirecionando para:', DESTINATION_URL);
-        // Implementa o redirecionamento (Ação de link)
+    const pontoBica = document.querySelector('#ponto-bica');
+
+    // Pagina destino após desbloquear (Praça de Iracema)
+    const DESTINATION_URL = 'desafio_praca_iracema.html';
+
+    function unlockLocal() {
+      try { localStorage.setItem('unlocked_praca_iracema', 'true'); } catch (e) { console.warn(e); }
+    }
+
+    async function unlockForUserAndRedirect() {
+      // Tenta salvar no Firebase caso o usuário esteja autenticado, senão apenas localStorage
+      try {
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            try {
+              await set(ref(database, `users/${user.uid}/unlocked/praca_iracema`), true);
+              unlockLocal();
+              window.location.href = DESTINATION_URL;
+            } catch (err) {
+              console.warn('Erro ao salvar no banco, usando localStorage', err);
+              unlockLocal();
+              window.location.href = DESTINATION_URL;
+            }
+          } else {
+            // Não autenticado, salva localmente
+            unlockLocal();
+            window.location.href = DESTINATION_URL;
+          }
+        });
+      } catch (e) {
+        console.warn('Falha ao usar Firebase, fallback local', e);
+        unlockLocal();
         window.location.href = DESTINATION_URL;
-      });
-      
-      // Logs para monitorar (opcional)
-      const bicaMarker = document.querySelector('#bica-marker');
-      bicaMarker.addEventListener('markerFound', () => {
-        console.log('marker encontrado');
-      });
-      bicaMarker.addEventListener('markerLost', () => {
-        console.log('marker perdido');
-      });
+      }
+    }
+
+    // CLIQUE NA ESFERA: DESBLOQUEIA E REDIRECIONA
+    pontoBica.addEventListener('click', function () {
+      console.log('Tentando desbloquear desafio Praça de Iracema (scanner 1)...');
+      unlockForUserAndRedirect();
+    });
+
+    // Logs para monitorar (opcional)
+    const bicaMarker = document.querySelector('#bica-marker');
+    bicaMarker.addEventListener('markerFound', () => {
+      console.log('marker encontrado');
+    });
+    bicaMarker.addEventListener('markerLost', () => {
+      console.log('marker perdido');
+    });
 
     </script>
   </body>

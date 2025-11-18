@@ -55,20 +55,24 @@
             <div class="carousel-container">
                 <button class="carousel-arrow prev"><i class="fas fa-chevron-left"></i></button>
                 <div class="challenge-card-container">
-                    <div class="challenge-card praça">
-                        <div class="live-indicator">Ao vivo</div>
+                    <div class="challenge-card praça" id="challenge-praca" data-challenge="bica_ipu">
+                        <div class="lock-indicator" id="praca-lock"><i class="fas fa-lock"></i></div>
                         <h4>Praça de Iracema</h4>
                     </div>
-                    <div class="challenge-card estacao" onclick="window.location.href='desafio_estacao_ferroviaria.html'">
+                    <div class="challenge-card estacao" id="challenge-estacao" data-challenge="estacao">
+                        <div class="lock-indicator" id="estacao-lock"><i class="fas fa-lock"></i></div>
                         <h4>Estação Ferroviária</h4>
                     </div>
-                    <div class="challenge-card casa-cultura" onclick="window.location.href='desafio_casa_cultura.html'">
+                    <div class="challenge-card casa-cultura" id="challenge-casa" data-challenge="casa_cultura">
+                        <div class="lock-indicator" id="casa-lock"><i class="fas fa-lock"></i></div>
                         <h4>Casa de Cultura</h4>
                     </div>
-                    <div class="challenge-card igrejinha" onclick="window.location.href='desafio_igrejinha_do_ceu.html'">
+                    <div class="challenge-card igrejinha" id="challenge-igrejinha" data-challenge="igrejinha_ceu">
+                        <div class="lock-indicator" id="igrejinha-lock"><i class="fas fa-lock"></i></div>
                         <h4>Igrejinha do Céu</h4>
                     </div>
-                    <div class="challenge-card bica" onclick="window.location.href='desafio_bica_ipu.html'">
+                    <div class="challenge-card bica" id="challenge-bica" data-challenge="bica_ipu">
+                        <div class="lock-indicator" id="bica-lock"><i class="fas fa-lock"></i></div>
                         <h4>Bica do Ipu</h4>
                     </div>
                 </div>
@@ -130,16 +134,16 @@
             <div class="footer-column">
                 <h4>Quem Somos?</h4>
                 <ul>
-                    <li><a href="#">Sobre Nós</a></li>
-                    <li><a href="#">Fale Conosco</a></li>
-                    <li><a href="#">Guia de Turismo</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Sobre Nós</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Fale Conosco</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Guia de Turismo</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h4>Suporte</h4>
                 <ul>
-                    <li><a href="#">Centro de Ajuda</a></li>
-                    <li><a href="#">Como Funciona</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Centro de Ajuda</a></li>
+                    <li><a href="#" target="_blank" rel="noopener noreferrer">Como Funciona</a></li>
                 </ul>
             </div>
             <div class="footer-column">
@@ -151,9 +155,9 @@
             <div class="footer-social">
                 <h4>Nos Siga</h4>
                 <div class="social-icons">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com/little.jp.kk"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"target="_blank" rel="noopener noreferrer" ><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/little.jp.kk" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+                    <a href="#" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
                 </div>
             </div>
         </div>
@@ -162,5 +166,376 @@
     <script type="module" src="firebase-config.js"></script>
     <script type-="module" src="auth-redirect.js"></script>
     <script src="script.js"></script>
+        <script type="module">
+        import { auth, database } from './firebase-config.js';
+        import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
+        import { ref, get } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+
+        // Detectar mudança de usuário e limpar cache de desafios
+        let lastUserId = sessionStorage.getItem('lastLoggedInUserId');
+        
+        onAuthStateChanged(auth, (user) => {
+            const currentUserId = user ? user.uid : null;
+            
+            // Se o usuário mudou (ou saiu), limpar cache de desafios
+            if (lastUserId && lastUserId !== currentUserId) {
+                localStorage.removeItem('unlocked_praca_iracema');
+                localStorage.removeItem('unlocked_bica_ipu');
+                localStorage.removeItem('unlocked_estacao');
+                localStorage.removeItem('unlocked_casa_cultura');
+                localStorage.removeItem('unlocked_igrejinha_ceu');
+            }
+            
+            // Atualizar o ID do último usuário logado
+            if (currentUserId) {
+                sessionStorage.setItem('lastLoggedInUserId', currentUserId);
+            } else {
+                sessionStorage.removeItem('lastLoggedInUserId');
+            }
+        });
+
+        const pracaLock = document.getElementById('praca-lock');
+        const pracaCard = document.getElementById('challenge-praca');
+
+        function hideLock() {
+            if (pracaLock) pracaLock.style.display = 'none';
+            if (pracaCard) { pracaCard.style.cursor = 'pointer'; pracaCard.classList.add('unlocked'); }
+        }
+
+        function showLock() {
+            if (pracaLock) pracaLock.style.display = 'block';
+            if (pracaCard) { pracaCard.style.cursor = 'default'; pracaCard.classList.remove('unlocked'); }
+        }
+
+        // função para checar e aplicar estado de desbloqueio (Praça de Iracema)
+        async function applyUnlockState() {
+            if (localStorage.getItem('unlocked_praca_iracema') === 'true') {
+                hideLock();
+                return;
+            }
+
+            try {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/praca_iracema`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_praca_iracema','true');
+                                hideLock();
+                            } else {
+                                showLock();
+                            }
+                        } catch (err) { console.warn(err); showLock(); }
+                    } else {
+                        showLock();
+                    }
+                });
+            } catch (e) { console.warn(e); showLock(); }
+        }
+
+        // Adiciona comportamento de clique: se desbloqueado abre o desafio, senão abre o scanner
+        if (pracaCard) {
+            pracaCard.addEventListener('click', async () => {
+                const localUnlocked = localStorage.getItem('unlocked_praca_iracema') === 'true';
+                if (localUnlocked) {
+                    window.location.href = 'desafio_praca_iracema.html';
+                    return;
+                }
+
+                // tenta verificar no Firebase antes de redirecionar ao scanner
+                try {
+                    const user = auth.currentUser;
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/praca_iracema`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_praca_iracema','true');
+                                window.location.href = 'desafio_praca_iracema.html';
+                                return;
+                            }
+                        } catch (err) { console.warn(err); }
+                    }
+                } catch (e) { console.warn(e); }
+
+                // padrão: redireciona para a tela de explicação do marcador
+                window.location.href = 'capitulo_1.1.html';
+            });
+        }
+
+        // inicialmente aplica o estado
+        applyUnlockState();
+
+        // --- ESTAÇÃO FERROVIÁRIA ---
+        const estacaoLock = document.getElementById('estacao-lock');
+        const estacaoCard = document.getElementById('challenge-estacao');
+
+        function hideLockEstacao() {
+            if (estacaoLock) estacaoLock.style.display = 'none';
+            if (estacaoCard) { estacaoCard.style.cursor = 'pointer'; estacaoCard.classList.add('unlocked'); }
+        }
+
+        function showLockEstacao() {
+            if (estacaoLock) estacaoLock.style.display = 'block';
+            if (estacaoCard) { estacaoCard.style.cursor = 'default'; estacaoCard.classList.remove('unlocked'); }
+        }
+
+        async function applyUnlockStateEstacao() {
+            if (localStorage.getItem('unlocked_estacao') === 'true') {
+                hideLockEstacao();
+                return;
+            }
+
+            try {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/estacao`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_estacao','true');
+                                hideLockEstacao();
+                            } else {
+                                showLockEstacao();
+                            }
+                        } catch (err) { console.warn(err); showLockEstacao(); }
+                    } else {
+                        showLockEstacao();
+                    }
+                });
+            } catch (e) { console.warn(e); showLockEstacao(); }
+        }
+
+        if (estacaoCard) {
+            estacaoCard.addEventListener('click', async () => {
+                const localUnlocked = localStorage.getItem('unlocked_estacao') === 'true';
+                if (localUnlocked) {
+                    window.location.href = 'desafio_estacao.html';
+                    return;
+                }
+
+                try {
+                    const user = auth.currentUser;
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/estacao`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_estacao','true');
+                                window.location.href = 'desafio_estacao.html';
+                                return;
+                            }
+                        } catch (err) { console.warn(err); }
+                    }
+                } catch (e) { console.warn(e); }
+
+                // padrão: redireciona para a tela de explicação do marcador
+                window.location.href = 'capitulo_2.1.html';
+            });
+        }
+
+        applyUnlockStateEstacao();
+
+        // --- CASA DE CULTURA ---
+        const casaLock = document.getElementById('casa-lock');
+        const casaCard = document.getElementById('challenge-casa');
+
+        function hideLockCasa() {
+            if (casaLock) casaLock.style.display = 'none';
+            if (casaCard) { casaCard.style.cursor = 'pointer'; casaCard.classList.add('unlocked'); }
+        }
+
+        function showLockCasa() {
+            if (casaLock) casaLock.style.display = 'block';
+            if (casaCard) { casaCard.style.cursor = 'default'; casaCard.classList.remove('unlocked'); }
+        }
+
+        async function applyUnlockStateCasa() {
+            if (localStorage.getItem('unlocked_casa_cultura') === 'true') {
+                hideLockCasa();
+                return;
+            }
+
+            try {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/casa_cultura`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_casa_cultura','true');
+                                hideLockCasa();
+                            } else {
+                                showLockCasa();
+                            }
+                        } catch (err) { console.warn(err); showLockCasa(); }
+                    } else {
+                        showLockCasa();
+                    }
+                });
+            } catch (e) { console.warn(e); showLockCasa(); }
+        }
+
+        if (casaCard) {
+            casaCard.addEventListener('click', async () => {
+                const localUnlocked = localStorage.getItem('unlocked_casa_cultura') === 'true';
+                if (localUnlocked) {
+                    window.location.href = 'desafio_casa_cultura.html';
+                    return;
+                }
+
+                try {
+                    const user = auth.currentUser;
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/casa_cultura`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_casa_cultura','true');
+                                window.location.href = 'desafio_casa_cultura.html';
+                                return;
+                            }
+                        } catch (err) { console.warn(err); }
+                    }
+                } catch (e) { console.warn(e); }
+
+                // padrão: redireciona para a tela de explicação do marcador
+                window.location.href = 'capitulo_3.1.html';
+            });
+        }
+
+        applyUnlockStateCasa();
+
+        // --- IGREJINHA DO CÉU ---
+        const igrejaLock = document.getElementById('igrejinha-lock');
+        const igrejaCard = document.getElementById('challenge-igrejinha');
+
+        function hideLockIgreja() {
+            if (igrejaLock) igrejaLock.style.display = 'none';
+            if (igrejaCard) { igrejaCard.style.cursor = 'pointer'; igrejaCard.classList.add('unlocked'); }
+        }
+
+        function showLockIgreja() {
+            if (igrejaLock) igrejaLock.style.display = 'block';
+            if (igrejaCard) { igrejaCard.style.cursor = 'default'; igrejaCard.classList.remove('unlocked'); }
+        }
+
+        async function applyUnlockStateIgreja() {
+            if (localStorage.getItem('unlocked_igrejinha_ceu') === 'true') {
+                hideLockIgreja();
+                return;
+            }
+
+            try {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/igrejinha_ceu`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_igrejinha_ceu','true');
+                                hideLockIgreja();
+                            } else {
+                                showLockIgreja();
+                            }
+                        } catch (err) { console.warn(err); showLockIgreja(); }
+                    } else {
+                        showLockIgreja();
+                    }
+                });
+            } catch (e) { console.warn(e); showLockIgreja(); }
+        }
+
+        if (igrejaCard) {
+            igrejaCard.addEventListener('click', async () => {
+                const localUnlocked = localStorage.getItem('unlocked_igrejinha_ceu') === 'true';
+                if (localUnlocked) {
+                    window.location.href = 'desafio_igrejinha_do_ceu.html';
+                    return;
+                }
+
+                try {
+                    const user = auth.currentUser;
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/igrejinha_ceu`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_igrejinha_ceu','true');
+                                window.location.href = 'desafio_igrejinha_do_ceu.html';
+                                return;
+                            }
+                        } catch (err) { console.warn(err); }
+                    }
+                } catch (e) { console.warn(e); }
+
+                // padrão: redireciona para a tela de explicação do marcador
+                window.location.href = 'capitulo_4.1.html';
+            });
+        }
+
+        applyUnlockStateIgreja();
+
+        // --- BICA DO IPU (cartão adicional) ---
+        const bicaLock = document.getElementById('bica-lock');
+        const bicaCard = document.getElementById('challenge-bica');
+
+        function hideLockBica() {
+            if (bicaLock) bicaLock.style.display = 'none';
+            if (bicaCard) { bicaCard.style.cursor = 'pointer'; bicaCard.classList.add('unlocked'); }
+        }
+
+        function showLockBica() {
+            if (bicaLock) bicaLock.style.display = 'block';
+            if (bicaCard) { bicaCard.style.cursor = 'default'; bicaCard.classList.remove('unlocked'); }
+        }
+
+        async function applyUnlockStateBica() {
+            if (localStorage.getItem('unlocked_bica_ipu') === 'true') {
+                hideLockBica();
+                return;
+            }
+
+            try {
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/bica_ipu`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_bica_ipu','true');
+                                hideLockBica();
+                            } else {
+                                showLockBica();
+                            }
+                        } catch (err) { console.warn(err); showLockBica(); }
+                    } else {
+                        showLockBica();
+                    }
+                });
+            } catch (e) { console.warn(e); showLockBica(); }
+        }
+
+        if (bicaCard) {
+            bicaCard.addEventListener('click', async () => {
+                const localUnlocked = localStorage.getItem('unlocked_bica_ipu') === 'true';
+                if (localUnlocked) {
+                    window.location.href = 'desafio_bica_ipu.html';
+                    return;
+                }
+
+                try {
+                    const user = auth.currentUser;
+                    if (user) {
+                        try {
+                            const snap = await get(ref(database, `users/${user.uid}/unlocked/bica_ipu`));
+                            if (snap && snap.exists && snap.val() === true) {
+                                localStorage.setItem('unlocked_bica_ipu','true');
+                                window.location.href = 'desafio_bica_ipu.html';
+                                return;
+                            }
+                        } catch (err) { console.warn(err); }
+                    }
+                } catch (e) { console.warn(e); }
+
+                // padrão: redireciona para a tela de explicação do marcador
+                window.location.href = 'capitulo_5.1.html';
+            });
+        }
+
+        applyUnlockStateBica();
+        </script>
 </body>
 </html>
