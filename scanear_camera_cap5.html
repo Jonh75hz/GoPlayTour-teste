@@ -3,13 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>MVP Bica - CLIQUE MOBILE CORRIGIDO</title>
+    <title>Capítulo 5 | Scan</title>
 
     <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"></script>
 
     <style>
-      /* Removendo estilos desnecessários e garantindo fullscreen */
       body { margin: 0; overflow: hidden; }
       .arjs-loader { opacity: 0; } 
     </style>
@@ -19,11 +18,7 @@
     <a-scene
       id="ar-scene"
       vr-mode-ui="enabled: false"
-      
-      /* CORREÇÃO CRÍTICA: Raycaster agora verifica cliques em todos os objetos (o '*' é mais genérico) */
-      /* E usa 'touch' para ativar o clique */
       raycaster="objects: *; far: 100; near: 0; showLine: false;" 
-      
       arjs="sourceType: webcam; 
             detectionMode: mono; 
             debugUIEnabled: false; 
@@ -31,37 +26,31 @@
             sourceHeight: 480; 
             displayWidth: 640; 
             displayHeight: 480;" 
-            
       renderer="logarithmicDepthBuffer: true; alpha: true;">
       
       <a-assets>
-          <img id="img-bica" src="imgs/bica-do-ipu.jpg" alt="Montanha - imagem para esfera ">
+          <img id="img-bica" src="fotos/bica.jpg" alt="Bica do Ipu">
       </a-assets>
       
       <a-marker id="bica-marker" preset="hiro">
-    <a-sphere id="ponto-bica"
-              radius="0.5"
-              src="#img-bica"
-              position="0 1.5 0"
-              class="clickable"
-              
-              /* NOVO: Aumenta a suavidade horizontal e vertical da esfera */
-              segments-width="120"
-              segments-height="120"
-              
-              /* Mantido o shader flat para cores vibrantes */
-              material="shader: flat;"> 
-        <a-text value="BICA DO IPU: CLIQUE!"
-                align="center"
-                position="0 0.8 0"
-                scale="1.2 1.2 1.2"
-                color="white"></a-text>
-    </a-sphere>
-</a-marker>
+        <a-sphere id="ponto-bica"
+                  radius="0.5"
+                  src="#img-bica"
+                  position="0 1.5 0"
+                  class="clickable"
+                  segments-width="120"
+                  segments-height="120"
+                  material="shader: flat;"> 
+            <a-text value="BICA DO IPU: CLIQUE!"
+                    align="center"
+                    position="0 0.8 0"
+                    scale="1.2 1.2 1.2"
+                    color="white"></a-text>
+        </a-sphere>
+      </a-marker>
 
       <a-entity 
         camera 
-        /* Cursor com 'fuse: false' para desativar o timer e 'rayOrigin: cursor' (melhor para touch) */
         cursor="fuse: false; rayOrigin: cursor; objects: .clickable;"
       ></a-entity> 
       
@@ -70,17 +59,16 @@
     <div id="descricao-overlay" style="display: none;"></div>
 
     <script type="module">
-    import { auth, database } from './firebase-config.js';
+    import { auth } from './firebase-config.js';
     import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
-    import { ref, set } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+    import { saveProgressToFirebase } from './progress-manager.js';
 
     const pontoBica = document.querySelector('#ponto-bica');
-
-    // Página destino após desbloquear
     const DESTINATION_URL = 'desafio_bica_ipu.html';
+    const CHALLENGE_ID = 'bica_ipu';
 
     function unlockLocal() {
-      try { localStorage.setItem('unlocked_bica_ipu', 'true'); } catch (e) { console.warn(e); }
+      try { localStorage.setItem(`unlocked_${CHALLENGE_ID}`, 'true'); } catch (e) { console.warn(e); }
     }
 
     async function unlockForUserAndRedirect() {
@@ -88,33 +76,35 @@
         onAuthStateChanged(auth, async (user) => {
           if (user) {
             try {
-              await set(ref(database, `users/${user.uid}/unlocked/bica_ipu`), true);
+              await saveProgressToFirebase(CHALLENGE_ID, 100, true);
               unlockLocal();
+              sessionStorage.setItem(`show_unlock_${CHALLENGE_ID}`, 'true');
               window.location.href = DESTINATION_URL;
             } catch (err) {
               console.warn('Erro ao salvar no banco, usando localStorage', err);
               unlockLocal();
+              sessionStorage.setItem(`show_unlock_${CHALLENGE_ID}`, 'true');
               window.location.href = DESTINATION_URL;
             }
           } else {
             unlockLocal();
+            sessionStorage.setItem(`show_unlock_${CHALLENGE_ID}`, 'true');
             window.location.href = DESTINATION_URL;
           }
         });
       } catch (e) {
         console.warn('Falha ao usar Firebase, fallback local', e);
         unlockLocal();
+        sessionStorage.setItem(`show_unlock_${CHALLENGE_ID}`, 'true');
         window.location.href = DESTINATION_URL;
       }
     }
 
-    // CLIQUE NA ESFERA: DESBLOQUEIA E REDIRECIONA
     pontoBica.addEventListener('click', function () {
-      console.log('Tentando desbloquear desafio Bica do Ipu (scanner 5)...');
+      console.log(`Tentando desbloquear desafio ${CHALLENGE_ID}...`);
       unlockForUserAndRedirect();
     });
 
-    // Logs para monitorar (opcional)
     const bicaMarker = document.querySelector('#bica-marker');
     bicaMarker.addEventListener('markerFound', () => {
       console.log('marker encontrado');

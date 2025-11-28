@@ -29,20 +29,27 @@ body {
     padding: 20px;
 }
 
-.btn-voltar {
+.back-button {
+    display: inline-flex;
+    align-items: center;
     background-color: var(--primary-color);
     color: white;
-    border: none;
-    padding: 10px 25px;
-    border-radius: 5px;
-    font-size: 1em;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
     font-weight: 600;
-    cursor: pointer;
-    margin-bottom: 30px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.back-button i {
+    margin-right: 8px;
+}
+
+.back-button:hover {
+    background-color: #3a005a;
 }
 
 .main-title {
@@ -169,4 +176,29 @@ body {
 .prize-card p {
     color: #a0a0a0; /* Grayed out text */
     font-size: 1.1em;
+}
+
+/* Mini janela da dica */
+.hint-popup {
+    display: none;
+    background: #ffffff;
+    padding: 15px 20px;
+    margin-top: 12px;
+    border-radius: 15px;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+    border-left: 4px solid var(--primary-color);
+    animation: fadeHint .25s ease;
+}
+
+.hint-popup p {
+    margin: 0;
+    font-size: 0.95em;
+    color: var(--light-text-color);
+    font-style: italic;
+}
+
+/* Animação suave */
+@keyframes fadeHint {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
 }

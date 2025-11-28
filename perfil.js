@@ -1,6 +1,7 @@
 import { auth, database } from './firebase-config.js';
 import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
 import { ref, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+import { loadAllProgressFromFirebase } from './progress-manager.js';
 
 // Oculta o conteúdo da página para evitar o "pisca-pisca"
 document.documentElement.style.visibility = 'hidden';
@@ -42,7 +43,7 @@ onAuthStateChanged(auth, user => {
             borderSelect.value = savedBorder;
         }
 
-        const handleData = (snapshot) => {
+        const handleData = async (snapshot) => {
             const data = snapshot.val();
             if (data && data.name) {
                 userNameElem.textContent = data.name;
@@ -50,8 +51,19 @@ onAuthStateChanged(auth, user => {
                 userNameElem.textContent = "Perfil não encontrado";
                 userNameElem.style.color = "red";
             }
-            document.getElementById('userPoints').textContent = '120';
-            const progress = 48;
+
+            const allProgress = await loadAllProgressFromFirebase();
+            let totalPoints = 0;
+            if (allProgress) {
+                for (const challengeId in allProgress) {
+                    if (allProgress[challengeId].pontosGanhos) {
+                        totalPoints += allProgress[challengeId].pontosGanhos;
+                    }
+                }
+            }
+
+            document.getElementById('userPoints').textContent = totalPoints;
+            const progress = 48; // This seems to be a hardcoded value, I will leave it for now
             document.getElementById('progressPercentage').textContent = `${progress}%`;
             const progressCircle = document.querySelector('.progress-circle');
             progressCircle.style.setProperty('--progress', progress);

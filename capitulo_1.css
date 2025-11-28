@@ -119,10 +119,11 @@ body {
 }
 
 .clues-gallery img {
-    max-width: 180px;
-    height: auto;
-    border-radius: 5px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 180px;      /* Largura fixa */
+    height: 180px;     /* Altura fixa */
+    object-fit: cover; /* Corta a imagem sem distorcer */
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .clues-gallery figcaption {

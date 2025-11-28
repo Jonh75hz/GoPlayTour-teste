@@ -22,12 +22,15 @@
             <h2>Missões</h2>
             <div class="mission">
                 <h3>Resolva a Charada</h3>
-                <p class="riddle-text">O que é que todo mundo vem ver, mas não dá pra beber?</p>
+                <p class="riddle-text">Estou no ponto mais alto, com vistas para as serras e o vale. Se você olhar pela janela ou for ao mirante, verá a grande extensão de casas, ruas e árvores que se espalha abaixo. O que se revela a seus pés?</p>
                 <div class="answer-input-container">
                     <input type="text" placeholder="Escreva sua resposta">
                     <button class="send-button"><i class="fas fa-paper-plane"></i></button>
                 </div>
                 <button class="hint-button"><i class="fas fa-question-circle"></i> Mostrar Dica</button>
+                  <div class="hint-popup">
+                    <p>Apenas um teste,paciência.</p>
+                  </div>
 
                 <div class="progress-container">
                     <div class="progress-bar-background">
@@ -51,14 +54,20 @@
             <p>Use o scanner para desbloquear este desafio.</p>
             <a href="capitulo_4.1.html" class="button-continue">Abrir Scanner</a>
         </div>
-    </div>
+    </div> 
 
     <script type="module">
     import { auth, database } from './firebase-config.js';
     import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
     import { ref, get } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+    import { showUnlockNotification } from './notification.js';
+    import { validateAnswer } from './quiz-validator.js';
+    import { showResultNotification } from './quiz-result-notification.js';
+    import { quizConfig } from './quiz-config.js';
+    import { saveProgressToFirebase, loadProgressFromFirebase } from './progress-manager.js';
 
     const overlay = document.getElementById('lockedOverlay');
+    const CHALLENGE_ID = 'igrejinha_ceu';
 
     function showLocked() {
       overlay.style.display = 'flex';
@@ -74,7 +83,15 @@
     async function checkUnlocked() {
       try {
         const local = localStorage.getItem('unlocked_igrejinha_ceu');
-        if (local === 'true') { hideLocked(); return; }
+        if (local === 'true') { 
+          hideLocked();
+          // Se foi desbloqueado nesta sessão, mostrar notificação
+          if (sessionStorage.getItem('show_unlock_igrejinha_ceu') === 'true') {
+            showUnlockNotification('Igrejinha do Céu', 100);
+            sessionStorage.removeItem('show_unlock_igrejinha_ceu');
+          }
+          return;
+        }
 
         // se houver firebase, verifica se o usuário está autenticado e tem o desbloqueio
         onAuthStateChanged(auth, async (user) => {
@@ -84,6 +101,10 @@
               if (snap && snap.exists && snap.val() === true) {
                 localStorage.setItem('unlocked_igrejinha_ceu','true');
                 hideLocked();
+                if (sessionStorage.getItem('show_unlock_igrejinha_ceu') === 'true') {
+                  showUnlockNotification('Igrejinha do Céu', 100);
+                  sessionStorage.removeItem('show_unlock_igrejinha_ceu');
+                }
               } else {
                 showLocked();
               }
@@ -103,6 +124,69 @@
     }
 
     document.addEventListener('DOMContentLoaded', checkUnlocked);
+
+    // ===== VALIDAÇÃO & PROGRESSO (Igrejinha do Céu) =====
+    const inputField = document.querySelector('.answer-input-container input');
+    const sendBtn = document.querySelector('.answer-input-container .send-button');
+    const tipBtn = document.querySelector('.hint-button');
+    const progressBar = document.querySelector('.progress-bar');
+    const progressText = document.querySelector('.progress-container span');
+    const config = quizConfig.igrejinha_ceu;
+    let answeredCorrectly = false;
+
+    function updateProgressUI(progress) {
+      if (progressBar) progressBar.style.width = progress + '%';
+      if (progressText) progressText.textContent = progress + '%';
+    }
+
+    async function initializeProgress() {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const progress = await loadProgressFromFirebase(CHALLENGE_ID);
+          if (progress && progress.completed) {
+            answeredCorrectly = true;
+            updateProgressUI(100);
+            if (inputField) inputField.disabled = true;
+            if (sendBtn) sendBtn.disabled = true;
+            if (tipBtn) tipBtn.disabled = true;
+            if (inputField) inputField.placeholder = 'Missão concluída!';
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeProgress);
+
+    if (sendBtn) sendBtn.addEventListener('click', handleAnswer);
+    if (inputField) inputField.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAnswer(); });
+
+    async function handleAnswer() {
+      if (answeredCorrectly) { showResultNotification(true, '✓ Você já respondeu corretamente!'); return; }
+      const userAnswer = inputField ? inputField.value.trim() : '';
+      if (!userAnswer) { showResultNotification(false, 'Por favor, escreva uma resposta!'); return; }
+      const isCorrect = validateAnswer(userAnswer, config.answerKeywords);
+      if (isCorrect) {
+        answeredCorrectly = true; if (inputField) inputField.disabled = true; if (sendBtn) sendBtn.disabled = true; if (tipBtn) tipBtn.disabled = true;
+        updateProgressUI(100);
+        showResultNotification(true, `✓ Resposta Correta!<br>+100 Pontos`);
+        await saveProgressToFirebase(CHALLENGE_ID, 100);
+      } else { showResultNotification(false, '✗ Resposta Incorreta<br>Tente Novamente!'); if (inputField) inputField.value = ''; }
+    }
+
+    if (tipBtn) tipBtn.addEventListener('click', () => { showResultNotification(true, `💡 Dica: ${config.hint}`); });
+    // Mostrar e esconder mini janela da dica
+    const hintButton = document.querySelector('.hint-button');
+    const hintPopup = document.querySelector('.hint-popup');
+
+    hintButton.addEventListener('click', () => {
+        if (hintPopup.style.display === 'block') {
+            hintPopup.style.display = 'none';
+            hintButton.innerHTML = `<i class="fas fa-question-circle"></i> Mostrar Dica`;
+        } else {
+            hintPopup.style.display = 'block';
+            hintButton.innerHTML = `<i class="fas fa-question-circle"></i> Ocultar Dica`;
+        }
+    });
     </script>
 </body>
 </html>

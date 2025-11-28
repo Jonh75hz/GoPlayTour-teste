@@ -92,9 +92,10 @@ body {
 }
 
 .pistas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    display: flex;
+    justify-content: center;
     gap: 20px;
+    flex-wrap: nowrap; /* Mantém lado a lado */
 }
 
 .pista-card {
@@ -103,6 +104,15 @@ body {
     text-align: center;
     padding: 10px;
     transition: transform 0.3s;
+    width: 180px; /* impede quebrar */
+}
+
+.pista-card img {
+    width: 180px;      /* TAMANHO IGUAL */
+    height: 180px;     /* TAMANHO IGUAL */
+    object-fit: cover; /* Corta sem distorcer */
+    border-radius: 10px;
+    border: 1px solid #eee;
 }
 
 .pista-card:hover {

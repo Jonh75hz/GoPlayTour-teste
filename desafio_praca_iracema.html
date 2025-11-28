@@ -5,13 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Desafio | Praça de Iracema</title>
     <link rel="stylesheet" href="desafio_praca_iracema.css">
+    <link rel="stylesheet" href="quiz-result.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <main class="main-container">
-        <button class="btn-voltar" onclick="history.back()">
-            <i class="fas fa-arrow-left"></i> Voltar
-        </button>
+        <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Voltar</a>
 
         <h1 class="main-title">Desafios na Praça de Iracema</h1>
 
@@ -32,6 +31,9 @@
                 <button class="tip-btn">
                     <i class="fas fa-question-circle"></i> Mostrar Dica
                 </button>
+                <div class="hint-popup">
+                  <p>A resposta é: A água da Bica.</p>
+                </div>
             </div>
 
             <div class="progress-bar-container">
@@ -44,7 +46,192 @@
             <p>Complete as missões para receber seu prêmio</p>
         </section>
     </main>
+
+    <!-- Overlay mostrado quando o desafio estiver bloqueado -->
+    <div id="lockedOverlay" class="locked-overlay" style="display:none;">
+        <div class="locked-inner">
+            <i class="fas fa-lock fa-3x"></i>
+            <h2>Desafio Bloqueado</h2>
+            <p>Use o scanner para desbloquear este desafio.</p>
+            <a href="capitulo_1.1.html" class="button-continue">Abrir Scanner</a>
+        </div>
+    </div>
     
-    <script src="desafio_bica_ipu.js"></script>
-</body>
-</html>
+    <script type="module">
+    import { auth, database } from './firebase-config.js';
+    import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
+    import { ref, get } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+    import { showUnlockNotification } from './notification.js';
+    import { validateAnswer } from './quiz-validator.js';
+    import { showResultNotification } from './quiz-result-notification.js';
+    import { quizConfig } from './quiz-config.js';
+    import { saveProgressToFirebase, loadProgressFromFirebase } from './progress-manager.js';
+
+    const overlay = document.getElementById('lockedOverlay');
+    const CHALLENGE_ID = 'praca_iracema';
+
+    function showLocked() {
+      overlay.style.display = 'flex';
+      // Desabilitar interações principais
+      document.querySelectorAll('.missions-card input, .missions-card button').forEach(el => el.disabled = true);
+    }
+
+    function hideLocked() {
+      overlay.style.display = 'none';
+    }
+
+    // Checa primeiro localStorage, depois Firebase (se autenticado)
+    async function checkUnlocked() {
+      try {
+        const local = localStorage.getItem('unlocked_praca_iracema');
+        if (local === 'true') { 
+          hideLocked();
+          // Se foi desbloqueado nesta sessão, mostrar notificação
+          if (sessionStorage.getItem('show_unlock_praca_iracema') === 'true') {
+            showUnlockNotification('Praça de Iracema', 100);
+            sessionStorage.removeItem('show_unlock_praca_iracema');
+          }
+          return;
+        }
+
+        // se houver firebase, verifica se o usuário está autenticado e tem o desbloqueio
+        onAuthStateChanged(auth, async (user) => {
+          if (user) {
+            try {
+              const snap = await get(ref(database, `users/${user.uid}/unlocked/praca_iracema`));
+              if (snap && snap.exists && snap.val() === true) {
+                localStorage.setItem('unlocked_praca_iracema','true');
+                hideLocked();
+                if (sessionStorage.getItem('show_unlock_praca_iracema') === 'true') {
+                  showUnlockNotification('Praça de Iracema', 100);
+                  sessionStorage.removeItem('show_unlock_praca_iracema');
+                }
+              } else {
+                showLocked();
+              }
+            } catch (err) {
+              console.warn('Erro ao verificar banco, mostrando bloqueado por segurança', err);
+              showLocked();
+            }
+          } else {
+            // usuário não autenticado e sem localStorage: bloqueado
+            showLocked();
+          }
+        });
+      } catch (e) {
+        console.warn('Erro ao checar desbloqueio, fallback: bloquear', e);
+        showLocked();
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', checkUnlocked);
+
+    // ===== SISTEMA DE VALIDAÇÃO DE RESPOSTAS =====
+    const inputField = document.querySelector('.response-area input');
+    const sendBtn = document.querySelector('.send-btn');
+    const tipBtn = document.querySelector('.tip-btn');
+    const progressBar = document.querySelector('.progress-bar');
+    const progressText = document.querySelector('.progress-bar-container span');
+    
+    const config = quizConfig.praca_iracema;
+    let answeredCorrectly = false;
+
+    // Carregar progresso anterior ao inicializar
+    async function initializeProgress() {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const progress = await loadProgressFromFirebase(CHALLENGE_ID);
+          if (progress && progress.completed) {
+            // Usuário já completou este desafio anteriormente
+            answeredCorrectly = true;
+            updateProgressUI(100);
+            inputField.disabled = true;
+            sendBtn.disabled = true;
+            tipBtn.disabled = true;
+            inputField.placeholder = 'Missão concluída!';
+            console.log('✓ Progresso anterior carregado');
+          }
+        }
+      });
+    }
+
+    // Função auxiliar para atualizar UI
+    function updateProgressUI(progress) {
+      progressBar.style.width = progress + '%';
+      progressText.textContent = progress + '%';
+    }
+
+    // Inicializar ao carregar a página
+    document.addEventListener('DOMContentLoaded', initializeProgress);
+
+    // Evento ao clicar no botão enviar
+    sendBtn.addEventListener('click', handleAnswer);
+    inputField.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') handleAnswer();
+    });
+
+    async function handleAnswer() {
+        if (answeredCorrectly) {
+            showResultNotification(true, '✓ Você já respondeu corretamente!');
+            return;
+        }
+
+        const userAnswer = inputField.value.trim();
+        if (!userAnswer) {
+            showResultNotification(false, 'Por favor, escreva uma resposta!');
+            return;
+        }
+
+        // Validar resposta
+        const isCorrect = validateAnswer(userAnswer, config.answerKeywords);
+
+        if (isCorrect) {
+            answeredCorrectly = true;
+            inputField.disabled = true;
+            sendBtn.disabled = true;
+            tipBtn.disabled = true;
+            
+            // Atualizar barra de progresso
+            updateProgressUI(100);
+            
+            showResultNotification(true, `✓ Resposta Correta!<br>+100 Pontos`);
+            
+            // Desabilitar input após acerto
+            inputField.placeholder = 'Missão concluída!';
+
+            // ===== SALVAR PROGRESSO NO FIREBASE =====
+            const saved = await saveProgressToFirebase(CHALLENGE_ID, 100);
+            if (saved) {
+              console.log('✓ Progresso salvo no Firebase com sucesso!');
+            } else {
+              console.warn('⚠️ Progresso salvo localmente, mas Firebase pode estar indisponível');
+            }
+        } else {
+            showResultNotification(false, '✗ Resposta Incorreta<br>Tente Novamente!');
+            inputField.value = '';
+        }
+    }
+
+    // Botão de dica: mostra notificação e alterna a mini-popup
+    {
+      const hintPopup = document.querySelector('.hint-popup');
+      if (tipBtn) {
+        tipBtn.addEventListener('click', () => {
+          // Toast / notificação rápida
+          showResultNotification(true, `💡 Dica: ${config.hint}`);
+
+          // Alternar mini-popup (se existir)
+          if (hintPopup) {
+            const isVisible = hintPopup.style.display === 'block';
+            if (isVisible) {
+              hintPopup.style.display = 'none';
+              tipBtn.innerHTML = `<i class="fas fa-question-circle"></i> Mostrar Dica`;
+            } else {
+              hintPopup.style.display = 'block';
+              tipBtn.innerHTML = `<i class="fas fa-question-circle"></i> Ocultar Dica`;
+            }
+          }
+        });
+      }
+    }
+    </script>

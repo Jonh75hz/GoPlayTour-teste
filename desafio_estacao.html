@@ -9,9 +9,7 @@
 </head>
 <body>
     <main class="main-container">
-        <button class="btn-voltar" onclick="history.back()">
-            <i class="fas fa-arrow-left"></i> Voltar
-        </button>
+        <a href="index.html" class="back-button"><i class="fas fa-arrow-left"></i> Voltar</a>
 
         <h1 class="main-title">Desafios na Estação</h1>
 
@@ -32,6 +30,9 @@
                 <button class="tip-btn">
                     <i class="fas fa-question-circle"></i> Mostrar Dica
                 </button>
+                <div class="hint-popup">
+                  <p>A resposta é: A água da estação.</p>
+                </div>
             </div>
 
             <div class="progress-bar-container">
@@ -53,14 +54,20 @@
             <p>Use o scanner para desbloquear este desafio.</p>
             <a href="capitulo_2.1.html" class="button-continue">Abrir Scanner</a>
         </div>
-    </div>
+    </div> 
 
     <script type="module">
     import { auth, database } from './firebase-config.js';
     import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
     import { ref, get } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js';
+    import { showUnlockNotification } from './notification.js';
+    import { validateAnswer } from './quiz-validator.js';
+    import { showResultNotification } from './quiz-result-notification.js';
+    import { quizConfig } from './quiz-config.js';
+    import { saveProgressToFirebase, loadProgressFromFirebase } from './progress-manager.js';
 
     const overlay = document.getElementById('lockedOverlay');
+    const CHALLENGE_ID = 'estacao';
 
     function showLocked() {
       overlay.style.display = 'flex';
@@ -76,7 +83,15 @@
     async function checkUnlocked() {
       try {
         const local = localStorage.getItem('unlocked_estacao');
-        if (local === 'true') { hideLocked(); return; }
+        if (local === 'true') { 
+          hideLocked();
+          // Se foi desbloqueado nesta sessão, mostrar notificação
+          if (sessionStorage.getItem('show_unlock_estacao') === 'true') {
+            showUnlockNotification('Estação Ferroviária', 100);
+            sessionStorage.removeItem('show_unlock_estacao');
+          }
+          return;
+        }
 
         // se houver firebase, verifica se o usuário está autenticado e tem o desbloqueio
         onAuthStateChanged(auth, async (user) => {
@@ -86,6 +101,10 @@
               if (snap && snap.exists && snap.val() === true) {
                 localStorage.setItem('unlocked_estacao','true');
                 hideLocked();
+                if (sessionStorage.getItem('show_unlock_estacao') === 'true') {
+                  showUnlockNotification('Estação Ferroviária', 100);
+                  sessionStorage.removeItem('show_unlock_estacao');
+                }
               } else {
                 showLocked();
               }
@@ -105,7 +124,69 @@
     }
 
     document.addEventListener('DOMContentLoaded', checkUnlocked);
+
+    // ===== VALIDAÇÃO & PROGRESSO (Estação) =====
+    const inputField = document.querySelector('.response-area input');
+    const sendBtn = document.querySelector('.send-btn');
+    const tipBtn = document.querySelector('.tip-btn');
+    const progressBar = document.querySelector('.progress-bar');
+    const progressText = document.querySelector('.progress-bar-container span');
+    const config = quizConfig.estacao;
+    let answeredCorrectly = false;
+
+    function updateProgressUI(progress) {
+      if (progressBar) progressBar.style.width = progress + '%';
+      if (progressText) progressText.textContent = progress + '%';
+    }
+
+    async function initializeProgress() {
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          const progress = await loadProgressFromFirebase(CHALLENGE_ID);
+          if (progress && progress.completed) {
+            answeredCorrectly = true;
+            updateProgressUI(100);
+            if (inputField) inputField.disabled = true;
+            if (sendBtn) sendBtn.disabled = true;
+            if (tipBtn) tipBtn.disabled = true;
+            if (inputField) inputField.placeholder = 'Missão concluída!';
+          }
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', initializeProgress);
+
+    if (sendBtn) sendBtn.addEventListener('click', handleAnswer);
+    if (inputField) inputField.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleAnswer(); });
+
+    async function handleAnswer() {
+      if (answeredCorrectly) { showResultNotification(true, '✓ Você já respondeu corretamente!'); return; }
+      const userAnswer = inputField ? inputField.value.trim() : '';
+      if (!userAnswer) { showResultNotification(false, 'Por favor, escreva uma resposta!'); return; }
+      const isCorrect = validateAnswer(userAnswer, config.answerKeywords);
+      if (isCorrect) {
+        answeredCorrectly = true; if (inputField) inputField.disabled = true; if (sendBtn) sendBtn.disabled = true; if (tipBtn) tipBtn.disabled = true;
+        updateProgressUI(100);
+        showResultNotification(true, `✓ Resposta Correta!<br>+100 Pontos`);
+        await saveProgressToFirebase(CHALLENGE_ID, 100);
+      } else { showResultNotification(false, '✗ Resposta Incorreta<br>Tente Novamente!'); if (inputField) inputField.value = ''; }
+    }
+
+    const hintPopup = document.querySelector('.hint-popup');
+    if (tipBtn) {
+        tipBtn.addEventListener('click', () => {
+            showResultNotification(true, `💡 Dica: ${config.hint}`);
+            const isVisible = hintPopup.style.display === 'block';
+            if (isVisible) {
+                hintPopup.style.display = 'none';
+                tipBtn.innerHTML = `<i class="fas fa-question-circle"></i> Mostrar Dica`;
+            } else {
+                hintPopup.style.display = 'block';
+                tipBtn.innerHTML = `<i class="fas fa-question-circle"></i> Ocultar Dica`;
+            }
+        });
+    }
     </script>
-    <script src="desafio_bica_ipu.js"></script>
 </body>
 </html>
