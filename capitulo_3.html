@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capítulo 3 | A Lenda Escondida</title>
-    <link rel="stylesheet" href="capitulo_3.css">
+    <!-- Usando o CSS unificado do capítulo 1 -->
+    <link rel="stylesheet" href="capitulo_1.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script type="module" src="auth-manager.js"></script>
 </head>
@@ -16,6 +17,7 @@
 
         <div class="content-wrapper">
             <header class="chapter-header">
+                <!-- Imagem específica do Capítulo 3 -->
                 <img src="fotos/cultura.jpg" alt="Casa de Cultura">
                 <div class="header-overlay">
                     <h1>Capítulo 3: A Lenda Escondida</h1>
@@ -31,16 +33,15 @@
                     <i class="far fa-star"></i>
                 </div>
 
-                <!-- Slider de texto com navegação Prev/Next -->
                 <div class="text-slider">
-                    <p class="chapter-text" id="text-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque fringilla ac lorem eu tristique.</p>
+                    <p class="chapter-text" id="text-content"></p>
                 </div>
 
                 <div class="pagination-container">
                     <button class="arrow-btn prev" id="prev-btn" onclick="prevScreen()" disabled>
                         <i class="fas fa-arrow-left"></i>
                     </button>
-                    <div class="page-indicator" id="page-indicator">1 / 5</div>
+                    <div class="page-indicator" id="page-indicator"></div>
                     <button class="arrow-btn next" id="next-btn" onclick="nextScreen()">
                         <i class="fas fa-arrow-right"></i>
                     </button>
@@ -65,17 +66,17 @@
                 </div>
             </section>
         </div>
-         <button class="btn-progredir" onclick="window.location.href='capitulo_3.1.html'" style="margin-top: 20px;">
+         <button class="btn-progredir" onclick="window.location.href='capitulo_3.1.html'">
                 Progredir Enredo
             </button>
     </main>
     <script>
         const screens = [
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-            'Quisque fringilla ac lorem eu tristique. Fusce aliquet aliquet augue a egestas.',
-            'Aenean interdum eget mi in commodo. Morbi pellentesque sollicitudin turpis.',
-            'Praesent rhoncus mollis dui sed accumsan. Morbi elit urna, pulvinar et sem et.',
-            'Viverra iaculis lectus. Morbi at tincidunt lectus. Curabitur augue turpis.'
+            `A Casa de Cultura, um sobrado antigo no centro da cidade, parece parada no tempo. As janelas altas e a sacada de ferro são um convite para histórias que poucos lembram.`,
+            `Dentro, o cheiro de madeira antiga e papel domina o ar. Um painel exibe fotos em preto e branco da construção da cidade. Em uma delas, um rosto familiar se destaca na multidão, perto da antiga estátua de Iracema.`,
+            `É o mesmo marceneiro que você encontrou na praça. Na foto, ele é jovem, e ao seu lado está um homem com um conjunto de plantas de construção.`,
+            `Você se aproxima da bibliotecária, uma senhora de olhar atento. Ao perguntar sobre a demolição da estátua original, ela hesita. 'Registros dessa época são... complicados', ela diz, 'Muitas páginas foram arrancadas dos livros.'`,
+            `Ela então lhe entrega uma ficha de biblioteca antiga. No verso, uma anotação a lápis: 'A chave para a verdade não está no que foi construído, mas no que foi enterrado. Procure a planta original na igrejinha.' O mesmo símbolo dos outros locais está desenhado ao lado da anotação.`
         ];
 
         let current = 0;
@@ -91,18 +92,12 @@
         }
 
         function nextScreen() {
-            if (current < total - 1) {
-                current += 1;
-                renderScreen(current);
-            }
+            if (current < total - 1) { current += 1; renderScreen(current); }
             updateButtons();
         }
 
         function prevScreen() {
-            if (current > 0) {
-                current -= 1;
-                renderScreen(current);
-            }
+            if (current > 0) { current -= 1; renderScreen(current); }
             updateButtons();
         }
 

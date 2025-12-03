@@ -1,179 +1,121 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
-
-:root {
-    --primary-color: #4A0072;
-    --secondary-color: #E63946;
-    --accent-color: #FDCB6E;
-    --background-color: #F4F4F9;
-    --card-background: #FFFFFF;
-    --text-color: #333333;
-    --light-text-color: #666666;
-    --footer-text-color: #E0E0E0;
-    --border-color: #E0E0E0;
-}
-
-* {
-    box-sizing: border-box;
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
-    font-family: 'Poppins', sans-serif;
-}
-
-body {
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.6;
+    color: #333;
 }
 
 .capitulos-header {
-    background-color: transparent;
-    color: var(--primary-color);
+    background-color: #4A148C;
+    color: white;
     padding: 20px;
     display: flex;
     align-items: center;
-    position: relative;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.capitulos-header h1 {
-    font-size: 2.5em;
-    font-weight: 700;
-    flex-grow: 1;
-}
-
-.capitulos-main-content {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 20px;
+    justify-content: center; 
+    position: relative; 
 }
 
 .btn-voltar {
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    padding: 8px 18px;
-    border-radius: 5px;
-    font-size: 1em;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    text-decoration: none;
-    position: absolute;
+    position: absolute; 
     left: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.btn-voltar:hover {
-    background-color: #3a005c;
-}
-
-.btn-voltar i {
-    margin-right: 5px;
-}
-
-.capitulos-container {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    justify-content: center;
-}
-
-.capitulo-card {
-    background-color: var(--card-background);
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: left;
-    position: relative;
-    transition: transform 0.3s, box-shadow 0.3s;
-    display: flex;
-    flex-direction: column;
-}
-
-.capitulo-card:last-child {
-    grid-column: span 2;
-    max-width: calc(50% - 12.5px);
-    justify-self: center;
-}
-
-.capitulo-card.unlocked {
-    cursor: pointer;
-}
-
-.capitulo-card.unlocked:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-}
-
-.capitulo-card h2 {
-    font-size: 1.5em;
-    color: var(--text-color);
-    margin-bottom: 10px;
-}
-
-.capitulo-card p {
-    color: var(--light-text-color);
-    margin-bottom: 20px;
-    font-size: 0.9em;
-    flex-grow: 1;
-}
-
-.btn-ir-capitulo {
-    background-color: var(--secondary-color);
-    color: white;
+    background: transparent;
     border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    font-size: 1em;
-    font-weight: 600;
+    color: white;
+    font-size: 1.5em;
+    padding: 0;
+    text-decoration: none;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s;
-    width: 100%;
-    display: block;
-    margin-top: auto;
-}
-
-.btn-ir-capitulo:hover:not(.disabled) {
-    background-color: #d62839;
-}
-
-.capitulo-card.locked {
-    pointer-events: none;
-}
-
-.lock-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
-    opacity: 0;
     transition: opacity 0.3s ease;
 }
 
-.capitulo-card.locked .lock-overlay {
+.btn-voltar:hover {
+    opacity: 0.8;
+}
+
+.capitulos-header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.capitulos-main-content {
+    padding: 40px 20px;
+}
+
+/* --- Estilos do Desktop (Pirâmide Invertida) --- */
+.capitulos-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os itens quebrem a linha */
+    justify-content: center; /* Centraliza as linhas de cards */
+    gap: 30px;
+    max-width: 1050px; /* Largura para acomodar 3 cards + gaps */
+    margin: 0 auto; /* Centraliza o container na página */
+}
+
+.capitulo-card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0.6;
+    width: 300px; /* Largura fixa para cada card */
+    display: flex;
+    flex-direction: column;
+}
+
+.capitulo-card p {
+    flex-grow: 1; /* Faz a descrição ocupar o espaço para alinhar os botões */
+}
+
+.capitulo-card.unlocked {
     opacity: 1;
 }
 
-.lock-overlay i {
-    font-size: 2.5em;
-    color: var(--light-text-color);
-    margin-bottom: 10px;
+.capitulo-card:not(.unlocked):hover {
+    transform: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.lock-overlay span {
-    font-weight: 600;
-    color: var(--light-text-color);
+.capitulo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
 }
 
-.btn-ir-capitulo.disabled {
-    background-color: var(--light-text-color);
-    cursor: not-allowed;
+.capitulo-card h2 {
+    margin-top: 0;
+    color: #4A148C;
+}
+
+.btn-ir-capitulo {
+    background-color: #E91E63;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    align-self: flex-start;
+    margin-top: 20px;
+}
+
+.btn-ir-capitulo:hover {
+    background-color: #C2185B;
+}
+
+/* --- Media Query para Responsividade (Mobile) --- */
+@media (max-width: 768px) {
+    .capitulos-container {
+        flex-direction: column; 
+        align-items: center;   
+        width: 100%;
+        padding: 0;
+        gap: 20px;
+    }
+
+    .capitulo-card {
+        width: 90%;
+    }
 }

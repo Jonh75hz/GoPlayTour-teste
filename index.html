@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O Mistério de Iracema | Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="responsive.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -15,8 +16,11 @@
                 <div class="dashboard-text">Go Play Tour</div>
                 <h1>O Mistério de Iracema</h1>
             </div>
-            <nav class="main-nav">
-                <a href="#" class="active">Mapa</a>
+            <button class="menu-toggle" id="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav class="main-nav" id="main-nav">
+                <a href="ranking.html" class="active">Ranking</a>
                 <a href="historia.html">História</a>
                 <a href="capitulos.html">Enredo</a>
                 <a href="#desafios-ativos">Desafios</a>
@@ -166,6 +170,7 @@
     <script type="module" src="firebase-config.js"></script>
     <script type-="module" src="auth-redirect.js"></script>
     <script src="script.js"></script>
+    <script src="menu.js"></script>
         <script type="module">
         import { auth, database } from './firebase-config.js';
         import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js';
