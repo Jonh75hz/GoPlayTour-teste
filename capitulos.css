@@ -1,121 +1,184 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f7f7fd; 
     margin: 0;
     padding: 0;
     color: #333;
 }
 
+/* --- ESTILOS PADRÃO (DESKTOP) --- */
+
 .capitulos-header {
-    background-color: #4A148C;
-    color: white;
-    padding: 20px;
+    background-color: #f7f7fd;
+    padding: 20px 40px;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     position: relative; 
+    width: 100%;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease;
 }
 
 .btn-voltar {
-    position: absolute; 
-    left: 20px;
-    background: transparent;
-    border: none;
+    position: absolute;
+    left: 40px;
+    background-color: #44006E;
     color: white;
-    font-size: 1.5em;
-    padding: 0;
+    padding: 8px 16px;
+    border-radius: 5px;
     text-decoration: none;
-    font-weight: bold;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
 }
 
 .btn-voltar:hover {
-    opacity: 0.8;
+    background-color: #3A005B;
 }
 
 .capitulos-header h1 {
     margin: 0;
-    font-size: 2em;
+    font-size: 2.2em;
+    font-weight: 700;
+    color: #44006E; 
+    transition: color 0.3s ease;
 }
 
 .capitulos-main-content {
-    padding: 40px 20px;
+    padding: 50px 20px;
 }
 
-/* --- Estilos do Desktop (Pirâmide Invertida) --- */
 .capitulos-container {
     display: flex;
-    flex-wrap: wrap; /* Permite que os itens quebrem a linha */
-    justify-content: center; /* Centraliza as linhas de cards */
-    gap: 30px;
-    max-width: 1050px; /* Largura para acomodar 3 cards + gaps */
-    margin: 0 auto; /* Centraliza o container na página */
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 35px;
+    max-width: 1120px; 
+    margin: 0 auto;
 }
 
 .capitulo-card {
     background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.07);
     padding: 25px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0.6;
-    width: 300px; /* Largura fixa para cada card */
+    width: 350px;
     display: flex;
     flex-direction: column;
-}
-
-.capitulo-card p {
-    flex-grow: 1; /* Faz a descrição ocupar o espaço para alinhar os botões */
-}
-
-.capitulo-card.unlocked {
-    opacity: 1;
-}
-
-.capitulo-card:not(.unlocked):hover {
-    transform: none;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: left;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
 }
 
 .capitulo-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-.capitulo-card h2 {
+.capitulo-card h2, .chapter-subtitle {
     margin-top: 0;
-    color: #4A148C;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #333;
+    line-height: 1.4;
+}
+
+.chapter-subtitle {
+    display: block;
+    font-weight: 700;
+    font-size: 1.25em;
+}
+
+.capitulo-card p {
+    flex-grow: 1;
+    color: #777;
+    font-size: 0.9em;
+    line-height: 1.6;
+    margin-bottom: 20px;
 }
 
 .btn-ir-capitulo {
-    background-color: #E91E63;
+    background-color: #d94444;
     color: white;
     border: none;
     padding: 12px 25px;
-    border-radius: 25px;
+    border-radius: 8px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 1em;
     transition: background-color 0.3s ease;
-    align-self: flex-start;
-    margin-top: 20px;
+    align-self: flex-start; 
+    text-transform: none; 
 }
 
 .btn-ir-capitulo:hover {
-    background-color: #C2185B;
+    background-color: #c2185b;
 }
 
-/* --- Media Query para Responsividade (Mobile) --- */
-@media (max-width: 768px) {
+/* --- Media Queries para Responsividade --- */
+
+@media (max-width: 1150px) {
     .capitulos-container {
-        flex-direction: column; 
-        align-items: center;   
+        max-width: 735px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px; 
+    }
+
+    .capitulos-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+        background-color: #44006E; 
+        padding: 15px 20px; 
+    }
+
+    .capitulos-header h1 {
+        color: white; 
+        font-size: 1.6em; 
+    }
+
+    .btn-voltar {
+        font-size: 0; /* 1. Esconde o texto "Voltar" */
+        background: transparent;
+        border: none;
+        left: 5px;
+        padding: 10px 15px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .btn-voltar::before {
+        content: '\2190'; /* 2. Adiciona a seta via pseudo-elemento */
+        font-size: 28px;   /* 3. Define o tamanho da seta */
+        color: white;
+    }
+    
+     .btn-voltar:hover {
+        background-color: transparent;
+        opacity: 0.8; 
+    }
+
+    .capitulos-main-content {
+        padding-top: 25px; 
+    }
+    
+    .capitulos-container {
+        flex-direction: column;
+        align-items: center;
         width: 100%;
-        padding: 0;
-        gap: 20px;
+        gap: 25px;
     }
 
     .capitulo-card {
         width: 90%;
+        max-width: 450px;
+        padding: 20px;
     }
 }

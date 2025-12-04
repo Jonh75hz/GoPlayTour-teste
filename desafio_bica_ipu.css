@@ -225,3 +225,60 @@ body {
     to   { opacity: 1; transform: translateY(0); }
 }
 
+/* --- Estilos para Responsividade Mobile --- */
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+    }
+
+    .main-container {
+        padding-top: 60px; /* Espaço para o botão de voltar fixo */
+    }
+
+    .back-button {
+        position: fixed; /* Fixo no topo */
+        top: 0;
+        left: 0;
+        width: 100%;
+        border-radius: 0;
+        z-index: 1000;
+        justify-content: flex-start; /* Alinha o conteúdo à esquerda */
+        padding: 15px 20px;
+    }
+
+    .title {
+        font-size: 2em; /* Reduz o tamanho do título */
+        margin-top: 20px; /* Reduz a margem superior */
+    }
+
+    .missions-card, .prize-card {
+        padding: 20px; /* Reduz o padding dos cards */
+    }
+
+    .missions-card h2 {
+        font-size: 1.5em; /* Reduz o título do card */
+    }
+
+    .mission h3 {
+        font-size: 1.2em; /* Reduz o título da missão */
+    }
+
+    .answer-input-container input {
+        padding: 10px 15px; /* Ajusta o padding do input */
+        border-radius: 15px 0 0 15px;
+    }
+    
+    .answer-input-container .send-button {
+        border-radius: 0 15px 15px 0;
+    }
+    
+    .hint-button {
+        padding: 8px 15px;
+        border-radius: 15px;
+    }
+
+    .locked-inner {
+        max-width: 90%;
+        padding: 25px 20px;
+    }
+}

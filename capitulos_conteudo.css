@@ -3,8 +3,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
 
 :root {
-    --header-bg: #000000;
-    --background-color: #ffffff; /* Fundo bege claro */
+    --header-bg: #4A0072;
+    --background-color: #ffffff;
     --card-background: #ffffff;
     --primary-red: #E75353;
     --text-color: #333;
@@ -22,15 +22,14 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     line-height: 1.6;
+    overflow-x: hidden; /* Garante que nada vaze horizontalmente */
 }
 
-/* --- Header --- */
+/* --- Header (Desktop) --- */
 .capitulo-header {
     background-color: var(--header-bg);
     color: var(--card-background);
-    padding: 15px 0;
-    text-align: left;
-    padding-left: 20px;
+    padding: 15px 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
@@ -45,10 +44,10 @@ body {
     padding: 20px;
 }
 
-/* --- Botão Voltar --- */
+/* --- Botão Voltar (Desktop) --- */
 .btn-voltar {
-    background-color: var(--header-bg);
-    color: var(--card-background);
+    background-color: #333;
+    color: white;
     border: none;
     padding: 10px 15px;
     border-radius: 5px;
@@ -68,10 +67,10 @@ body {
     background-color: var(--card-background);
     padding: 40px 30px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px var(--shadow-color); 
+    box-shadow: 0 5px 15px var(--shadow-color);
     text-align: center;
-    max-width: 750px; 
-    margin: 0 auto; 
+    max-width: 750px;
+    margin: 0 auto;
 }
 
 .chapter-title {
@@ -80,10 +79,9 @@ body {
     margin-bottom: 25px;
 }
 
-/* Banner da Imagem */
 .chapter-banner {
-    width: calc(100% + 60px); /* Ajusta a largura para cobrir as bordas do padding */
-    margin: 0 -30px 25px -30px; /* Margens negativas para estender a imagem */
+    width: calc(100% + 60px);
+    margin: 0 -30px 25px -30px;
     overflow: hidden;
 }
 
@@ -118,7 +116,7 @@ body {
 }
 
 .items-found-section ul {
-    list-style: none; /* Remove bullet points padrão */
+    list-style: none;
     padding-left: 0;
     margin-bottom: 20px;
     font-weight: 500;
@@ -139,13 +137,13 @@ body {
 }
 
 .item-thumbnail {
-    flex-basis: 30%; 
+    flex-basis: 30%;
     max-width: 150px;
 }
 
 .item-thumbnail img {
     width: 100%;
-    height: 100px; 
+    height: 100px;
     object-fit: cover;
     border-radius: 8px;
     border: 2px solid #ddd;
@@ -157,4 +155,71 @@ body {
     display: block;
     font-size: 0.85em;
     color: #666;
+}
+
+/* --- Estilos Específicos da Página da Câmera --- */
+.imagem-camera {
+    width: 50%;
+    max-width: 150px; /* Adiciona um limite para não ficar gigante */
+    margin: 0 auto 20px; /* Centraliza a imagem */
+}
+
+.btn-progredir {
+    background-color: var(--primary-red);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 15px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    transition: background-color 0.2s;
+}
+
+
+/* --- REGRAS PARA MOBILE --- */
+@media (max-width: 768px) {
+
+    /* 1. Esconde o header original */
+    .capitulo-header {
+        display: none;
+    }
+
+    /* 2. Transforma o botão 'Voltar' na nova barra de topo fixa */
+    .btn-voltar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw; /* Usa a largura da tela para cobrir tudo */
+        background-color: var(--header-bg);
+        color: var(--card-background);
+        z-index: 1000;
+        
+        /* Reseta e define novos estilos */
+        margin: 0;
+        border-radius: 0;
+        padding: 15px 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        
+        /* Alinha o conteúdo (ícone e texto) à esquerda */
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    /* 3. Adiciona um espaçamento no topo do conteúdo para não ficar atrás da barra */
+    .capitulo-main-content {
+        padding-top: 75px; 
+    }
+
+    .chapter-content-card {
+        padding: 30px 20px;
+    }
+
+    .chapter-banner {
+        width: calc(100% + 40px);
+        margin: 0 -20px 25px -20px;
+    }
 }

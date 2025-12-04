@@ -22,3 +22,20 @@
 .btn-voltar{
       background-color: #4A0072;
 }
+
+/* --- Regras de Estilo APENAS para MOBILE --- */
+@media (max-width: 768px) {
+    .btn-voltar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--primary-color);
+        border-radius: 0;
+        padding: 15px 20px;
+        margin: 0;
+        z-index: 1000;
+        justify-content: flex-start;
+        padding-left: 20px;
+    }
+}
